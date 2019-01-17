@@ -1,9 +1,10 @@
 import json
 from selenium import webdriver
 from bs4 import BeautifulSoup
+import ast
 from pasing_page import scoreboard,ETC_info,looking_for_team_name
 from pasing_page import away_batter,home_batter,away_pitcher,home_pitcher
-from modify_data import batter_clean,pitcher_clean
+from modifying_data import batter_clean,pitcher_clean
 import configparser
 
 config = configparser.ConfigParser()
