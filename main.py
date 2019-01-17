@@ -65,6 +65,13 @@ def get_data(date,gameld):
 # 위 코드 작동 확인
 # get_data("20180816","WOOB0")
 
+def modify_data(data):
+    data = batter_clean(data,'away_batter')
+    data = batter_clean(data,'home_batter')
+    data = pitcher_clean(data,'away_pitcher')
+    data = pitcher_clean(data,'home_pitcher')
+
+    return data
 '''
 위에서 만든 파일을 DataFrame으로 여는 법
 앞에서 만든 파일 명과 같은 이름으로 된 파일을 엽니다.
