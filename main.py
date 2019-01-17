@@ -13,6 +13,9 @@ config.read('config.ini')
 # 설정파일에 들어있는 KBO url을 가져 옵니다.
 url = config['DEFAULT']['KBO_URL']
 
+def temp():
+    return(url)
+
 def getting_page(gameDate,gameld):
     """
     단일 게임 자료를 받아오는 함수이다.
