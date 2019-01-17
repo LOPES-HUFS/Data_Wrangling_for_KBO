@@ -10,6 +10,7 @@ selenium = "*"
 configparser = "*"
 pandas = "*"
 jupyter = "*"
+lxml = "*"
 
 [dev-packages]
 pylint = "*"
