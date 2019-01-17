@@ -13,7 +13,6 @@ config.read('config.ini')
 # 설정파일에 들어있는 KBO url을 가져 옵니다.
 url = config['DEFAULT']['KBO_URL']
 
-
 def getting_page(gameDate,gameld):
     """
     단일 게임 자료를 받아오는 함수이다.
@@ -35,7 +34,7 @@ def getting_page(gameDate,gameld):
     # 혹은 options.add_argument("--disable-gpu")
  
     driver = webdriver.Chrome('chromedriver', chrome_options=options)
-    temp_url = temp()+gameDate+"&gameId="+gameDate+gameld+"&section=REVIEW"
+    temp_url = url+gameDate+"&gameId="+gameDate+gameld+"&section=REVIEW"
     print(temp_url)
     driver.get(temp_url)
     driver.implicitly_wait(3)
