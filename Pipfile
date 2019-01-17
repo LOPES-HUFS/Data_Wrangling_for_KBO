@@ -5,6 +5,9 @@ name = "pypi"
 
 [packages]
 requests = "*"
+selenium = "*"
+"bs4" = "*"
+configparser = "*"
 
 [dev-packages]
 pylint = "*"
