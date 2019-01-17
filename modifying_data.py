@@ -6,8 +6,8 @@ import ast
 def change_record(temp,column,factorlist):
     for i in range(0,len(temp[[str(column)]])):
         if "/" in list(str(temp[str(column)].tolist()[i])):
-            print(i)
-            print(temp[str(column)].tolist()[i])
+            #print(i)
+            #print(temp[str(column)].tolist()[i])
             temp1=factorlist.code[factorlist.factor_list==str(temp[str(column)].tolist()[i].split("/ ")[0].split("\\")[0])]
             temp2=factorlist.code[factorlist.factor_list==str(temp[str(column)].tolist()[i].split("/ ")[1])]
             
