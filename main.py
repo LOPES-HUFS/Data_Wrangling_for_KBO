@@ -13,8 +13,6 @@ config.read('config.ini')
 # 설정파일에 들어있는 KBO url을 가져 옵니다.
 url = config['DEFAULT']['KBO_URL']
 
-def temp():
-    return(url)
 
 def getting_page(gameDate,gameld):
     """
@@ -42,7 +40,7 @@ def getting_page(gameDate,gameld):
     driver.get(temp_url)
     driver.implicitly_wait(3)
     #driver.get_screenshot_as_file('koreabaseball_headless.png')
-    soup = BeautifulSoup(driver.page_source,"html5lib")
+    soup = BeautifulSoup(driver.page_source,"lxml")
     tables = soup.find_all('table')
     record_etc = soup.findAll('div',{'class':'record-etc'})
     box_score = soup.findAll('div',{'class':'box-score-wrap'})
