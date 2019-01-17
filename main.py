@@ -35,7 +35,6 @@ def getting_page(gameDate,gameld):
  
     driver = webdriver.Chrome('chromedriver', chrome_options=options)
     temp_url = url+gameDate+"&gameId="+gameDate+gameld+"&section=REVIEW"
-    print(temp_url)
     driver.get(temp_url)
     driver.implicitly_wait(3)
     #driver.get_screenshot_as_file('koreabaseball_headless.png')
