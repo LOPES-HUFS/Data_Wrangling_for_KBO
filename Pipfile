@@ -8,6 +8,7 @@ requests = "*"
 selenium = "*"
 "bs4" = "*"
 configparser = "*"
+pandas = "*"
 
 [dev-packages]
 pylint = "*"
