@@ -5,7 +5,6 @@ import ast
 import pandas as pd
 from pasing_page import scoreboard,ETC_info,looking_for_team_name
 from pasing_page import away_batter,home_batter,away_pitcher,home_pitcher
-from modifying_data import batter_clean,pitcher_clean
 import configparser
 
 config = configparser.ConfigParser()
@@ -62,23 +61,7 @@ def get_data(date,codelist):
     temp_name = temp_page['date']+'_'+temp_page['id']
     return {temp_name:temp_all}
 
-hanhwa=pd.read_csv("./data/sample_codelist.csv")
-hanhwa.date=hanhwa.date.astype(str)
 
-temp_full = {}
-for i in range(0,len(hanhwa)):
-    print(i)
-    temp_data = get_data(hanhwa.date[i],hanhwa.codelist[i])
-    temp_data = batter_clean(temp_data,'away_batter')
-    temp_data = batter_clean(temp_data,'home_batter')
-    temp_data = pitcher_clean(temp_data,'away_pitcher')
-    temp_data = pitcher_clean(temp_data,'home_pitcher')
-    temp_full.update(temp_data)
-
-temp_file_name = "hanhwa"+"_"+"normalseason"+"_"+"2018"+".json"
-
-with open(temp_file_name, 'w') as outfile:  
-    json.dump(temp_full, outfile)
 
 '''
 위에서 만든 파일을 DataFrame으로 여는 법
