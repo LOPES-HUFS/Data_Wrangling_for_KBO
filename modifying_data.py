@@ -24,7 +24,8 @@ def batter_clean(data,section):
     for i in factorlist.factor_list:
         temp_b=temp_b.replace(i,factorlist.code[factorlist.factor_list==i].tolist()[0])
         
-    for j in range(1,10):
+    columns=[x for x in temp_b.columns if x in ['1', '2', '3', '4', '5', '6', '7', '8', '9',"10","11","12"]]
+    for j in columns:
         temp_b=change_record(temp_b,j,factorlist)
 
     data[list(data.keys())[0]][section]=ast.literal_eval(temp_b.to_json(orient='records'))
