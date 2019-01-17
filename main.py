@@ -45,7 +45,8 @@ def getting_page(gameDate,gameld):
     teams = box_score[0].findAll('span',{'class':'logo'})
     return{'tables':tables, 'record_etc':record_etc, 'teams':teams, 'date':gameDate, 'id':gameld}
 
-#temp_page=getting_page("20180816","WOOB0")
+# 위 코드 작동 확인 코드
+# temp_page=getting_page("20180816","WOOB0")
 
 def get_data(date,gameld):
     temp_page=getting_page(date,gameld)
@@ -61,7 +62,8 @@ def get_data(date,gameld):
     temp_name = temp_page['date']+'_'+temp_page['id']
     return {temp_name:temp_all}
 
-
+# 위 코드 작동 확인
+# get_data("20180816","WOOB0")
 
 '''
 위에서 만든 파일을 DataFrame으로 여는 법
