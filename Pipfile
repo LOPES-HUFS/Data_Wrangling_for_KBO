@@ -9,6 +9,7 @@ selenium = "*"
 "bs4" = "*"
 configparser = "*"
 pandas = "*"
+jupyter = "*"
 
 [dev-packages]
 pylint = "*"
