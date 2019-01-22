@@ -5,6 +5,7 @@ import ast
 import pandas as pd
 from pasing_page import scoreboard,ETC_info,looking_for_team_name
 from pasing_page import away_batter,home_batter,away_pitcher,home_pitcher
+from modifying_data import batter_clean,pitcher_clean
 import configparser
 
 config = configparser.ConfigParser()
@@ -49,8 +50,8 @@ def getting_page(gameDate,gameld):
 # 위 코드 작동 확인 코드
 # temp_page=getting_page("20180816","WOOB0")
 
-def get_data(date,codelist):
-    temp_page=getting_page(date,codelist)
+def get_data(date,gameld):
+    temp_page=getting_page(date,gameld)
     temp_scoreboard = scoreboard(temp_page['tables'], temp_page['teams'])
 
     temp_all = {'scoreboard':ast.literal_eval(temp_scoreboard.to_json(orient='records'))}
@@ -66,6 +67,13 @@ def get_data(date,codelist):
 # 위 코드 작동 확인
 # get_data("20180816","WOOB0")
 
+def modify_data(data):
+    data = batter_clean(data,'away_batter')
+    data = batter_clean(data,'home_batter')
+    data = pitcher_clean(data,'away_pitcher')
+    data = pitcher_clean(data,'home_pitcher')
+
+    return data
 '''
 위에서 만든 파일을 DataFrame으로 여는 법
 앞에서 만든 파일 명과 같은 이름으로 된 파일을 엽니다.

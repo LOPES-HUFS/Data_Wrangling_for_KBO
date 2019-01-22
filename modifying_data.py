@@ -2,6 +2,18 @@ import pandas as pd
 from pasing_page import looking_for_team_name
 import ast 
 
+
+def change_record(temp,column,factorlist):
+    for i in range(0,len(temp[[str(column)]])):
+        if "/" in list(str(temp[str(column)].tolist()[i])):
+            #print(i)
+            #print(temp[str(column)].tolist()[i])
+            temp1=factorlist.code[factorlist.factor_list==str(temp[str(column)].tolist()[i].split("/ ")[0].split("\\")[0])]
+            temp2=factorlist.code[factorlist.factor_list==str(temp[str(column)].tolist()[i].split("/ ")[1])]
+            
+            temp.loc[i,str(column)]=str(list(temp1)[0])+str(list(temp2)[0])
+    return temp
+
 def batter_clean(data,section):
     temp_b=pd.DataFrame(data[list(data.keys())[0]][section])
     temp_b['경기날짜']= list(data.keys())[0][0:4]+"-"+list(data.keys())[0][4:6]+"-"+list(data.keys())[0][6:8]
@@ -12,6 +24,10 @@ def batter_clean(data,section):
     for i in factorlist.factor_list:
         temp_b=temp_b.replace(i,factorlist.code[factorlist.factor_list==i].tolist()[0])
         
+    columns=[x for x in temp_b.columns if x in ['1', '2', '3', '4', '5', '6', '7', '8', '9',"10","11","12"]]
+    for j in columns:
+        temp_b=change_record(temp_b,j,factorlist)
+
     data[list(data.keys())[0]][section]=ast.literal_eval(temp_b.to_json(orient='records'))
     return data
 

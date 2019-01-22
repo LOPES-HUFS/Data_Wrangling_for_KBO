@@ -109,3 +109,4 @@ venv.bak/
 # for mac 
 *.DS_Store
 .DS_Store
+test.ipynb
