@@ -2,15 +2,11 @@ import pandas as pd
 from pasing_page import looking_for_team_name
 import ast 
 
-
 def change_record(temp,column,factorlist):
     for i in range(0,len(temp[[str(column)]])):
         if "/" in list(str(temp[str(column)].tolist()[i])):
-            #print(i)
-            #print(temp[str(column)].tolist()[i])
             temp1=factorlist.code[factorlist.factor_list==str(temp[str(column)].tolist()[i].split("/ ")[0].split("\\")[0])]
             temp2=factorlist.code[factorlist.factor_list==str(temp[str(column)].tolist()[i].split("/ ")[1])]
-            
             temp.loc[i,str(column)]=str(list(temp1)[0])+str(list(temp2)[0])
     return temp
 
@@ -43,7 +39,6 @@ def change_inning(item):
         rest_inning=0
     
     return [inning,rest_inning]
-
 
 #section은 away_pitcher,home_pitcher 구분
 def pitcher_clean(data,section):
