@@ -39,7 +39,6 @@ def getting_page(gameDate,gameld):
     temp_url = url+gameDate+"&gameId="+gameDate+gameld+"&section=REVIEW"
     driver.get(temp_url)
     driver.implicitly_wait(3)
-    #driver.get_screenshot_as_file('koreabaseball_headless.png')
     soup = BeautifulSoup(driver.page_source,"lxml")
     tables = soup.find_all('table')
     record_etc = soup.findAll('div',{'class':'record-etc'})
@@ -74,6 +73,11 @@ def modify_data(data):
     data = pitcher_clean(data,'home_pitcher')
 
     return data
+
+# 위 코드 작동 확인
+# temp = get_data("20180816","WOOB0")
+# modify_data(temp)
+
 '''
 위에서 만든 파일을 DataFrame으로 여는 법
 앞에서 만든 파일 명과 같은 이름으로 된 파일을 엽니다.
