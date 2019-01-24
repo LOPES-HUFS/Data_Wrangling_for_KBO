@@ -2,7 +2,7 @@ import pandas as pd
 
 def scoreboard(tables, teams):
     temp_df_0 = pd.read_html(str(tables[0]))[0]
-    temp_df_0 =temp_df_0.rename(columns={"Unnamed: 0":"승패"})
+    temp_df_0 = temp_df_0.rename(columns={"Unnamed: 0":"승패"})
     temp_df_1 = pd.read_html(str(tables[1]))[0]
     temp_df_2 = pd.read_html(str(tables[2]))[0]
     temp_teams = looking_for_teams_name(teams)
@@ -25,7 +25,7 @@ def looking_for_teams_name(teams):
     return(temp_0, temp_1)
 
 def ETC_info(tables,record_etc):
-    record ={}
+    record = {}
     header_list = tables[3].find_all("th")
     header = [h.get_text(strip=True) for h in header_list]
     data = tables[3].find_all("td")
@@ -47,7 +47,6 @@ def away_batter(tables, team):
     away = pd.concat([temp1, temp2, temp3],axis=1)
     away['팀'] = looking_for_team_name(str(team[0]))
     away = away.fillna(0)
-    
     return away
 
 def home_batter(tables, team):
@@ -59,7 +58,6 @@ def home_batter(tables, team):
     home = pd.concat([temp1, temp2, temp3],axis=1)
     home['팀'] = looking_for_team_name(str(team[1]))
     home = home.fillna(0)
-    
     return home
 
 def away_pitcher(tables, team):
