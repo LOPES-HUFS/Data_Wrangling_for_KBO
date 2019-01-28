@@ -51,17 +51,18 @@ def pitcher_clean(data,section):
     temp1 = temp1.replace(True,"선발투수")
     temp1 = temp1.replace(False,"불펜투수")
     temp_p['포지션'] = temp1
-    temp_p['등판']=temp_p['등판'].replace('선발',1.1)
+    temp_p['등판'] = temp_p['등판'].replace('선발',1.1)
+    temp_p['결과']= temp_p['결과'].astype(str)
     temp2=temp_p['결과']=='승'
-    temp_p['승리']=temp2.astype(int)
-    temp3=temp_p['결과']=='패'
-    temp_p['패배']=temp3.astype(int)
-    temp4=temp_p['결과']=='무'
-    temp_p['무승부']=temp4.astype(int)
-    temp5=temp_p['결과']=='홀드'
-    temp_p['홀드']=temp5.astype(int)
-    temp6=temp_p['결과']=='세'
-    temp_p['세이브']=temp6.astype(int)
+    temp_p['승리'] = temp2.astype(int)
+    temp3 = temp_p['결과']=='패'
+    temp_p['패배'] = temp3.astype(int)
+    temp4 = temp_p['결과']=='무'
+    temp_p['무승부'] = temp4.astype(int)
+    temp5 = temp_p['결과']=='홀드'
+    temp_p['홀드'] = temp5.astype(int)
+    temp6 = temp_p['결과']=='세'
+    temp_p['세이브'] = temp6.astype(int)
     temp7= temp_p['이닝'].map(lambda x :change_inning(x))
     temp_p['inning'] = temp7.map(lambda x :x[0])
     temp_p['restinning'] = temp7.map(lambda x :x[1])
