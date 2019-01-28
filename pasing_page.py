@@ -27,12 +27,13 @@ def looking_for_teams_name(teams):
 def ETC_info(tables,record_etc):
     record = {}
     header_list = tables[3].find_all("th")
-    header = [h.get_text(strip=True) for h in header_list]
-    data = tables[3].find_all("td")
-    etc_data = [d.get_text(strip=True) for d in data]
-    record = {header[i]:etc_data[i] for i in range(0,len(header))}
-    record.update({key: record[key].split(') ') for key in record.keys() if len(record[key].split(') ')) >=2})
-    record['심판'] = record['심판'].split(" ")
+    if len(header_list)!=0:
+        header = [h.get_text(strip=True) for h in header_list]
+        data = tables[3].find_all("td")
+        etc_data = [d.get_text(strip=True) for d in data]
+        record = {header[i]:etc_data[i] for i in range(0,len(header))}
+        record.update({key: record[key].split(') ') for key in record.keys() if len(record[key].split(') ')) >=2})
+        record['심판'] = record['심판'].split(" ")
     etc={record_etc[0].find_all('span')[i].get_text().split(" : ")[0]:record_etc[0].find_all('span')[i].get_text().split(" : ")[1] 
     for i in range(0,len(record_etc[0].find_all('span')))}
     record.update(etc)
