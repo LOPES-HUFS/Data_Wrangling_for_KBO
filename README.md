@@ -7,6 +7,19 @@ Pipenv로 가상환경을 구성하고 있습니다. 다음 링크를 참고해�
 
 https://pipenv.readthedocs.io/en/latest/
 
+## 윈도우에서 크롬드라이버 및 selenium 설치
+
+먼저 아나콘다로 파이썬을 설치합니다. https://www.anaconda.com/download/#windows
+
+```
+conda create -n "myenv" python=3.7.2
+activate myenv
+conda install -c conda-forge --name myenv selenium 
+conda install selenium-chromedriver
+pip install pipenv
+```
+
+
 ## 우분투에서 크롬 설치 및 selenium 설치
 
 ```
