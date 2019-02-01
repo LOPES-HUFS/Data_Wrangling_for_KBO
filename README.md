@@ -16,7 +16,7 @@ https://pipenv.readthedocs.io/en/latest/
 conda create -n "myenv" python=3.7.2
 activate myenv
 conda install -c conda-forge --name myenv selenium 
-conda install selenium-chromedriver
+conda install -c clinicalgraphics selenium-chromedriver
 pip install pipenv
 ```
 
