@@ -61,9 +61,22 @@ http://www.epistemology.pe.kr/2018/09/25/1153
 이 프로젝트를 포그합니다. 이 프로젝트의 깃허브를 클론하거나 다운로드 합니다. 
 다운로드 된 압축파일을 압축해제 해줍니다. 맥이나 우분투의 경우 터미널에서
 이 프로젝트 폴더로 갑니다. 윈도우 또한 마찬가지로 conda prompt에서 이 프로젝트 폴더로 이동해 줍니다.
-그 이후 다음과 같은 코드로 가상환경을 시작합니다.
+그 이후 다음과 같은 코드로 가상환경에서 파이썬이나 쥬피터 노트북을 시작합니다.
 
 ```
 pipenv shell
 pipenv install
+#쥬피터 노트북을 실행하려면 jupyter notebook
+python3 #윈도우이면 python
 ```
+
+
+파이썬을 가상환경에서 실행한 다음 main 파일을 import해서 다음과 같이 사용할 수 있습니다.
+
+```
+import main
+import pandas as pd
+temp_data = main.get_data("20181010","KTLT1")
+temp = main.modify_data(temp_data) 
+```
+
