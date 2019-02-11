@@ -81,6 +81,12 @@ temp_data = main.get_data("20181010","KTLT1")
 temp = main.modify_data(temp_data) 
 ```
 
-### 참고
+## 참고
 
 현재 이 프로젝트에는 2018년 한화 자료가 이미 수집되어 저장되어 있습니다. 프로젝트에 들어있는 https://github.com/LOPES-HUFS/KBO_Data_Wrangling/blob/master/notebook.ipynb 을 보시면 수집한 자료를 어떻게 사용할 수 있는지 아실 수 있습니다.
+
+## 응용 사례
+
+LOPES에서는 이 스크립트로 수집한 자료로 다음과 같은 서버를 구축했습니다.
+
+http://lopes.hufs.ac.kr:9000
