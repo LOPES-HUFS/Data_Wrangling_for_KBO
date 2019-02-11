@@ -1,6 +1,8 @@
 # KBO 자료 수집하고 저장하기
 
-이 스크립트는 KBO 자료를 수집하고 분석하고자 만들었습니다.
+이 스크립트는 KBO 자료를 수집하고 분석하고자 만들었습니다. 자료를 수집하는 링크는 다음과 같습니다.
+
+https://www.koreabaseball.com/Schedule/GameCenter/Main.aspx
 
 ## 크롬 설치
 
@@ -78,3 +80,7 @@ import main
 temp_data = main.get_data("20181010","KTLT1")
 temp = main.modify_data(temp_data) 
 ```
+
+### 참고
+
+현재 이 프로젝트에는 2018년 한화 자료가 이미 수집되어 저장되어 있습니다. 프로젝트에 들어있는 https://github.com/LOPES-HUFS/KBO_Data_Wrangling/blob/master/notebook.ipynb 을 보시면 수집한 자료를 어떻게 사용할 수 있는지 아실 수 있습니다.
