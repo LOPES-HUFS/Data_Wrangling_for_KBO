@@ -71,11 +71,10 @@ python3 #윈도우이면 python
 ```
 
 
-파이썬을 가상환경에서 실행한 다음 main 파일을 import해서 다음과 같이 사용할 수 있습니다.
+파이썬을 가상환경에서 실행한 다음 main 파일을 import해서 다음과 같이 사용할 수 있습니다. 다음은 2018년 10월 10일자 KT와 롯데 더블헤더 1차전 경기를 수집하는 코드 입니다.
 
 ```
 import main
 temp_data = main.get_data("20181010","KTLT1")
 temp = main.modify_data(temp_data) 
 ```
-
