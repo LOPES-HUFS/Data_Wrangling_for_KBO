@@ -31,7 +31,7 @@ conda install -c clinicalgraphics selenium-chromedriver
 pip install pipenv
 ```
 
-## 우분투에서 크롬 설치 및 selenium 설치
+### 우분투에서 크롬 설치 및 selenium 설치
 
 ```
 sudo apt-get install chromium-chromedriver
@@ -42,15 +42,15 @@ sudo apt-get install python3-selenium
 
 /usr/lib/chromium-browser/chromedriver
 
-## 맥에서 크롬드라이버 및 selenium 설치 
+### 맥에서 크롬드라이버 및 selenium 설치
 
-터미널에서 아래의 코드를 통해 selenium chromedriver를 설치하실 수 있습니다. 
+맥에서 크롬드라이버를 쉽게 설치하는 방법은 [Homebrew](https://brew.sh/index_ko)으로 설치하는 것입니다. [Homebrew](https://brew.sh/index_ko)에 가서 글 내용을 확인하신 다음 Homebrew를 설치합니다. 홈부르의 명령어인 `brew`을 이용해서 터미널에서 아래처럼 입력하시면 selenium chromedriver를 설치하실 수 있습니다.
 
 ```
 brew cask install chromedriver
 ```
 
-자세한 내용은 아래의 링크를 참고하여 셀레니움 크롬드라이버를 설치합니다.
+조금더 자세한 내용은 아래의 링크를 참고하세요.
 
 http://www.epistemology.pe.kr/2018/09/25/1153
 
