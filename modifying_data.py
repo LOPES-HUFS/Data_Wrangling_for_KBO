@@ -67,7 +67,7 @@ def pitcher_clean(data,section):
     temp_p['inning'] = temp7.map(lambda x :x[0])
     temp_p['restinning'] = temp7.map(lambda x :x[1])
     temp_p = temp_p[['경기날짜','선수명','포지션','등판','원정팀','홈팀','더블헤더여부','팀','승리', '패배', '무승부', '홀드', '세이브', 'inning', 
-            'restinning','4사구','삼진','실점', '자책','투구수', '타수', '타자']]
+            'restinning','4사구','삼진','실점', '자책','투구수','피안타','홈런','타수', '타자']]
     data[list(data.keys())[0]][section]=ast.literal_eval(temp_p.to_json(orient='records'))
     return data
 
