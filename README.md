@@ -1,4 +1,4 @@
-# Data_Wrangling_for_KBO
+# Data Wrangling for KBO
 
 이 스크립트는 KBO 자료를 수집, 정리하고 분석하고자 만들었습니다. 자료를 수집하는 링크는 다음과 같습니다.
 
