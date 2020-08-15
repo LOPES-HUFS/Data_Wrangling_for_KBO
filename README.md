@@ -6,13 +6,13 @@
 
 ## 요구 사항
 
-이 스크립트는 다음 것들이 컴퓨터에 설치되어 있어야 제대로 작동합니다. 설치 방법은 위키를 참고하세요. 아래 본 프로젝트의 [위키](https://github.com/LOPES-HUFS/Data_Wrangling_for_KBO/wiki/요구-사항-설치-방법)를 참고하세요!
+이 스크립트는 다음 것들이 컴퓨터에 설치되어 있어야 제대로 작동합니다. 설치 방법은 위키를 참고하세요. 아래 본 프로젝트의 [위키](https://github.com/LOPES-HUFS/KBO_Data_Wrangling/wiki/요구-사항-설치-방법)를 참고하세요!
 
 **필요한 것들**: 크롬(Chrome) 브라우져, Python 3.6 이상, 크롬드라이버, selenium, 파이선 패키지(requests, selenium, bs4, configparser, pandas, lxml)
 
 ## 사용법
 
-우선 이 프로젝트를 다운 받습니다. 이 프로젝트의 [메인 페이지](https://github.com/LOPES-HUFS/Data_Wrangling_for_KBO) 오른쪽 상단에 'Code' 버튼을 클릭 후 'Download ZIP' 버튼을 눌러 다운받으시면 됩니다. 만약, [git](https://git-scm.com/downloads)을 설치하셨으면, git을 클론하시면 됩니다.
+우선 이 프로젝트를 다운 받습니다. 이 프로젝트의 [메인 페이지](https://github.com/LOPES-HUFS/KBO_Data_Wrangling) 오른쪽 상단에 'Code' 버튼을 클릭 후 'Download ZIP' 버튼을 눌러 다운받으시면 됩니다. 만약, [git](https://git-scm.com/downloads)을 설치하셨으면, git을 클론하시면 됩니다.
 
 프로젝트를 다 받으셨으면, `터미널`이나 `윈도우 cmd`에서 프로젝트를 받은 곳으로 이동합니다. 다음과 같은 파일이 있으면 잘 이동한 것입니다.
 
