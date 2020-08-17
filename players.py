@@ -15,7 +15,6 @@ def searching(name):
         tds = table.find_all('td')
         temp = [parsing_player_table(table_row, tds) for table_row in table_rows]
         res = [{item['ID']:item} for item in temp]
-        print(res)
     except:
         res = False
     return (res)
@@ -29,7 +28,6 @@ def parsing_player_table(table_row, tds):
         status = 'KBO'
     player_id = str(table_row).split('playerId=')[1].split('">')[0]
     team = tds[2].get_text()
-    print(player_id)
     name = table_row.get_text()
     return{"ID":player_id, "이름":name, "현재 상태":status, "team": team}
 
