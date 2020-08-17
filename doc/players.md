@@ -16,3 +16,28 @@ KBO에는 같은 이름을 가진 선수도 많고, 이름을 개명하는 선�
 temp_players = ['가득염', '가르시아', '가코', '강경학', '강구성', '강귀태', '강동관', '강동수', '강동연', '강동우']
 temp = players.searching_players(temp_players)
 ```
+
+## temp_code
+
+```python
+import csv
+import players
+
+temp_file_name='all_player_list.csv'
+
+with open (temp_file_name, 'rt') as fin:
+        cin = csv.DictReader(fin)
+        temp_player_list = [row for row in cin]
+
+temp_player_list[0]
+
+temp_players =[]
+
+for item in temp_player_list:
+    temp_players.append(item['name'])
+
+temp_players  =sorted(list(set(temp_players)))
+temp_players[0:10]
+
+players.searching_players(temp_players[0:9])
+```
