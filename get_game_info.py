@@ -1,9 +1,4 @@
 from selenium import webdriver
-from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver import ActionChains
-import requests
-from bs4 import BeautifulSoup
 import pandas as pd
 import time
 import re
