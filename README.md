@@ -18,7 +18,7 @@
 
 ```bash
 main.py
-modifying_data.py notebook.ipynb
+modifying_data.py
 pasing_page.py
 ```
 
