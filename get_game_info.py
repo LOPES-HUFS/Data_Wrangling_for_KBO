@@ -7,7 +7,13 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import time
 import re
- 
+import configparser
+
+config = configparser.ConfigParser()
+# 설정파일을 읽어옵니다.
+config.read('config.ini')
+chromium_location = config['DEFAULT']['chromium_location']
+
 def get_game_info_table(year,month,season):
     ''' 
         Args: year,month,season
@@ -29,7 +35,7 @@ def get_game_info_table(year,month,season):
     options.add_argument('window-size=1920x1080')
     options.add_argument("disable-gpu")
     url = f"https://www.koreabaseball.com/Schedule/Schedule.aspx?seriesId={season}" # 시범=1 정규=0,9 포스트=3,4,5,7
-    driver = webdriver.Chrome("/Users/choosunsick/chromedriver", chrome_options=options)
+    driver = webdriver.Chrome(chromium_location, chrome_options=options)
     driver.get(url)
     time.sleep(1)
     driver.find_element_by_id('ddlYear').send_keys(year)
@@ -104,4 +110,4 @@ game_id_july = get_game_list(july_data)
 
 game_ids_df = pd.concat([game_id_may,game_id_june,game_id_july])
 
-game_ids_df.to_csv("2020_gameid_list.csv")
+game_ids_df.to_csv("kbo_2020_gameid_list.csv")
