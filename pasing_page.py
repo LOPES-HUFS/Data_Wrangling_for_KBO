@@ -11,7 +11,9 @@ def scoreboard(tables, teams):
     return(temp_total)
 
 def looking_for_team_name(string):
-    team_list={'HT':'기아','OB':'두산','LT':'롯데','NC':'NC','SK':'SK','LG':'LG','WO':'넥센','HH':'한화','SS':'삼성','KT':'KT'}
+    #team_list={'HT':'기아','OB':'두산','LT':'롯데','NC':'NC','SK':'SK','LG':'LG','WO':'넥센','HH':'한화','SS':'삼성','KT':'KT'}
+    #2019년 버전
+    team_list={'HT':'기아','OB':'두산','LT':'롯데','NC':'NC','SK':'SK','LG':'LG','WO':'키움','HH':'한화','SS':'삼성','KT':'KT'}
     temp = [string.find(team) for team in team_list.keys()]
     temp[:] = [0 if ele != -1 else ele for ele in temp]
     # -1: 없다 이고 나머지 숫자는 그것이 있는 자리다!
@@ -36,6 +38,7 @@ def ETC_info(tables,record_etc):
         record['심판'] = record['심판'].split(" ")
     etc={record_etc[0].find_all('span')[i].get_text().split(" : ")[0]:record_etc[0].find_all('span')[i].get_text().split(" : ")[1] 
     for i in range(0,len(record_etc[0].find_all('span')))}
+    #etc={i.split(" : ")[0]:i.split(" : ")[1] for i in record_etc[0].get_text().split("\n") if len(i)!=0 }
     record.update(etc)
     return record
 
