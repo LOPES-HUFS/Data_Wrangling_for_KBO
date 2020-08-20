@@ -10,7 +10,7 @@ config.read('config.ini')
 Game_info_URL = config['DEFAULT']['Game_info_URL']
 chromium_location = config['DEFAULT']['chromium_location']
 
-def get_game_info_table(year,month,season):
+def get_table(year,month,season):
     ''' 
         Args: year,month,season
         year: 원하는 게임의 연도
@@ -50,7 +50,6 @@ def get_game_info_table(year,month,season):
     
     gamelist_df=pd.DataFrame(gamelist,columns=['날짜','시간','경기','게임센터','하이라이트','TV','라디오','구장','비고'])
     driver.close()
-    #gamelist_df.to_csv(f'KBO_normal_season{year}_{month}.csv')
     return gamelist_df
 
 team_list={'HT':'KIA','OB':'두산','LT':'롯데','NC':'NC','SK':'SK','LG':'LG','WO':'키움','HH':'한화','SS':'삼성','KT':'KT'}
@@ -62,7 +61,7 @@ def change_team_name(string):
     temp=list(team_list.items())[temp]
     return temp[0]
 
-def get_game_list(data):
+def change_df(data):
     '''
     입력값: data는 get_game_info_table 함수의 return 값
 
