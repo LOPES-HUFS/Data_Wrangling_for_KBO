@@ -99,3 +99,11 @@ def modify_data(year, data):
     gameid_list = gameid_list[gameid_list.gameid != "드림나눔0"]
 
     return gameid_list
+
+def get_datas(year,month):
+    result = pd.DataFrame()
+    for i in month:
+       temp = get_data(year,i,"정규")
+       monthly_data = modify_data(year,temp)
+       result = result.append(monthly_data)
+    result.to_csv("2020_gameid.csv",index=False)
