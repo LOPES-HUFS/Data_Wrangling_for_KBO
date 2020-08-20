@@ -7,6 +7,7 @@ import configparser
 config = configparser.ConfigParser()
 # 설정파일을 읽어옵니다.
 config.read('config.ini')
+Game_info_URL = config['DEFAULT']['Game_info_URL']
 chromium_location = config['DEFAULT']['chromium_location']
 
 def get_game_info_table(year,month,season):
@@ -29,7 +30,8 @@ def get_game_info_table(year,month,season):
     options.add_argument('headless')
     options.add_argument('window-size=1920x1080')
     options.add_argument("disable-gpu")
-    url = f"https://www.koreabaseball.com/Schedule/Schedule.aspx?seriesId={season}" # 시범=1 정규=0,9 포스트=3,4,5,7
+    url = Game_info_URL + season
+    #url = f"https://www.koreabaseball.com/Schedule/Schedule.aspx?seriesId={season}" # 시범=1 정규=0,9 포스트=3,4,5,7
     driver = webdriver.Chrome(chromium_location, chrome_options=options)
     driver.get(url)
     time.sleep(1)
@@ -95,14 +97,14 @@ def get_game_list(data):
 
 
 
-may_data = get_game_info_table(2020,"05","정규")
-june_data = get_game_info_table(2020,"06","정규")
-july_data = get_game_info_table(2020,"07","정규")
+#may_data = get_game_info_table(2020,"05","정규")
+#june_data = get_game_info_table(2020,"06","정규")
+#july_data = get_game_info_table(2020,"07","정규")
 
-game_id_may = get_game_list(may_data)
-game_id_june = get_game_list(june_data)
-game_id_july = get_game_list(july_data)
+#game_id_may = get_game_list(may_data)
+#game_id_june = get_game_list(june_data)
+#game_id_july = get_game_list(july_data)
 
-game_ids_df = pd.concat([game_id_may,game_id_june,game_id_july])
+#game_ids_df = pd.concat([game_id_may,game_id_june,game_id_july])
 
-game_ids_df.to_csv("kbo_2020_gameid_list.csv")
+#game_ids_df.to_csv("kbo_2020_gameid_list.csv")
