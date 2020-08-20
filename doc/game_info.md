@@ -19,8 +19,6 @@ game_id_may = game_info.modify_data(2020, may_data)
 ```
 
 ```python
-game_ids_df = pd.concat([game_id_may,game_id_june,game_id_july])
-
-game_ids_df.to_csv("kbo_2020_gameid_list.csv")
+get_datas(2020,["05","06","07","08"])
 
 ```
