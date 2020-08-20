@@ -100,7 +100,7 @@ def modify_data(year, data):
 
     return gameid_list
 
-def get_datas(year,month):
+def get_data_and_merge(year,month):
     result = pd.DataFrame()
     for i in month:
        temp = get_data(year,i,"정규")
