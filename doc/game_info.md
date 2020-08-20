@@ -19,6 +19,6 @@ game_id_may = game_info.modify_data(2020, may_data)
 ```
 
 ```python
-get_datas(2020,["05","06","07","08"])
+game_info.get_data_and_merge(2020,["05","06","07","08"])
 
 ```
