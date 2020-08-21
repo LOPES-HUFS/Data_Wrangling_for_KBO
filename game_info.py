@@ -1,8 +1,11 @@
-from selenium import webdriver
-import pandas as pd
 import time
+from datetime import datetime
 import re
 import configparser
+
+from selenium import webdriver
+import pandas as pd
+
 
 config = configparser.ConfigParser()
 # 설정파일을 읽어옵니다.
@@ -12,7 +15,7 @@ chromium_location = config['DEFAULT']['chromium_location']
 
 team_list = {'HT':'KIA','OB':'두산','LT':'롯데','NC':'NC','SK':'SK','LG':'LG','WO':'키움','HH':'한화','SS':'삼성','KT':'KT'}
 
-def get_data(year,month,season):
+def get_data(year, month, season):
     ''' 
         Args: year,month,season
         year: 원하는 게임의 연도
@@ -28,6 +31,8 @@ def get_data(year,month,season):
         season = "0,9"
     else:
         season = "3,4"
+
+    month = str(month).zfill(2)
 
     options = webdriver.ChromeOptions()
     options.add_argument('headless')
