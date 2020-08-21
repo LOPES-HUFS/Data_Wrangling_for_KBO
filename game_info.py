@@ -112,3 +112,20 @@ def get_data_and_merge(year,month):
        monthly_data = modify_data(year,temp)
        result = result.append(monthly_data)
     result.to_csv("2020_gameid.csv",index=False)
+
+def get_year_game_info_until_now():
+    """
+    현재를 기준으로 올해 정규 시즌 데이터를 받기 위해 게임 정보를 받아오는 함수 
+    """
+    
+    result = pd.DataFrame()
+    now = datetime.now()
+    month = now.month
+    year = now.year
+
+    for i in range(month):
+        temp_month = i + 1
+        temp = get_data(year, temp_month, "정규")
+        monthly_data = modify_data(year, temp)
+        result = result.append(monthly_data)
+    return result

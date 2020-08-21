@@ -24,3 +24,8 @@ game_id_may = game_info.modify_data(2020, may_data)
 game_info.get_data_and_merge(2020,[5, 6, 7, 8])
 ```
 
+현재를 기준으로 올해 정규 시즌 데이터를 받기 위해 게임 정보를 받아오시려면 다음과 같이 하면 됩니다.
+
+```python
+temp = game_info.get_year_game_info_until_now()
+```
