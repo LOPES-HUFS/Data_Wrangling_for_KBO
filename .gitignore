@@ -110,3 +110,6 @@ venv.bak/
 *.DS_Store
 .DS_Store
 test.ipynb
+
+# for R
+.Rapp.history
