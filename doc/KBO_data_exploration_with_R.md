@@ -17,30 +17,52 @@ install.packages("tidyverse")
 
 ```R
 library(tidyverse)
-con <- DBI::dbConnect(RSQLite::SQLite(), "backup.db")
+con <- DBI::dbConnect(RSQLite::SQLite(), "test.db")
 ```
 
 SQLite에 올린 자료를 R에서 사용하기 위하여 봅아봅시다.
 
 ```R
-hanhwa_pitcher <- tbl(con, "hanhwa_pitcher")
-hanhwa_pitcher
-hanhwa_batter <- tbl(con, "hanhwa_batter")
-hanhwa_batter
+pitcher <- tbl(con, "pitcher")
+batter <- tbl(con, "batter")
+pitcher
+batter
 ```
 
 한화 샘슨 선수의 등판 이닝을 모두 합해봅시다.
 
 ```R
-hanhwa_pitcher %>%
+pitcher %>%
     filter(선수명 == "샘슨") %>%
     summarize(sum = sum(등판), na.rm = TRUE)
 ```
 
-한화 이용규 선수의 한 게임 안타 평균을 구해 봅시다.
+한화 이용규 선수의 한 게임 안타 평균을 구해 봅시다. 다음으로 요일 경기를 뽑아봅시다. 0이 월요일 6이 일요일입니다.
 
 ```R
-hanhwa_batter %>%
+batter %>%
     filter(선수명 == "이용규") %>%
-    summarize(mean = mean(안타))
+    filter(week == 5) %>%
+    summarize(mean = mean(안타), na.rm = TRUE)
+
+batter %>%
+    filter(선수명 == "이용규") %>%
+    filter(week == 4) %>%
+    summarize(mean = mean(안타), na.rm = TRUE)
+```
+
+1회 선택
+
+```R
+> batter %>%
+    filter(선수명 == "이용규") %>%
+    filter(week == 5) %>%
+    select(i_1)
+
+```
+
+다 사용했으면 연결 해체
+
+```R
+dbListTables(con)
 ```
