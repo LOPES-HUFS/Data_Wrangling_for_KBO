@@ -17,7 +17,7 @@
 프로젝트를 다 받으셨으면, `터미널`이나 `윈도우 cmd`에서 프로젝트를 받은 곳으로 이동합니다. 다음과 같은 파일이 있으면 잘 이동한 것입니다.
 
 ```bash
-main.py
+single_game.py
 modifying_data.py
 pasing_page.py
 ```
@@ -29,7 +29,7 @@ pasing_page.py
 본격적을 경기 자료를 다운받아보겠습니다. 이제부터는 파이썬에서 실행하시면 됩니다. 필요한 것들을 `import`합니다.
 
 ```python
-import main
+import single_game
 import modifying_data
 import pandas as pd
 import json
@@ -38,7 +38,7 @@ import json
 2020년 8월 1일, 한화 대 엘지 경기 자료를 다운받아 보겠습니다. 여기서 "20200801"은 경기 날짜, "HHLG0"은 한화, 엘지 1번째 경기를 뜻합니다. 파이썬에서 0부터 숫자를 시작해서 0이 첫번째 경기입니다.
 
 ```python
-HHLG_20200801 = main.get_data("20200801","HHLG0")
+HHLG_20200801 = single_game.get_data("20200801","HHLG0")
 ```
 
 다운받은 경기 자료에 어떤 항목들이 있는지 살펴봅시다. 순서대로 확인하면 다음과 같습니다.
@@ -87,11 +87,11 @@ HHLG_20200801 = main.get_data("20200801","HHLG0")
 3  고우석  9.9   0  0  0  2       1   5   24   5    2   0    0   1   1   1  10.29  LG
 ```
 
-지금까지 `main.get_data()`을 이용하여 다운받은 자료를 살펴본 코드를 정리하면 다음과 같습니다.
+지금까지 `single_game.get_data()`을 이용하여 다운받은 자료를 살펴본 코드를 정리하면 다음과 같습니다.
 
 ```python
 # 경기 자료 다운
-HHLG_20200801 = main.get_data("20200801","HHLG0")
+HHLG_20200801 = single_game.get_data("20200801","HHLG0")
 # 어떤 테이블이 있는지 key 값을 통해 확인합니다.
 list(HHLG_20200801['20200801_HHLG0'].keys())
 # 도루를 비롯한 구장, 관중 수 등의 정보를 확인합니다.
@@ -110,11 +110,11 @@ pd.DataFrame(HHLG_20200801['20200801_HHLG0']['home_pitcher'])
 
 ### 2018 시즌 한화의 전체 경기 자료 데이터를 다운 받기
 
-앞에서 살펴본 `main.get_data()`은 한 경기만을 다운받는 함수입니다. 그러면 이 함수를 이용해서 2018 시즌 한화의 전체 경기 자료 데이터를 다운받아 보겠습니다. 저희 팀에서 이미 이 데이터를 자료를 받기 위한 리스트를 `Hanhwa_game_id_sample.csv`에 정리해두었습니다. 이 파일을 가지고 2018 시즌 한화의 전체 경기 자료 데이터를 받아보겠습니다. 다음 코드로 다운받을 리스트를 가져오겠습니다. 리스트의 길이가 144이니 전체 경기수는 144경기가 되겠습니다. 2018 시즌 한 팀 당 경기 수가 144경기였습니다. 이 숫자는 시즌마다 변경되기도 합니다.
+앞에서 살펴본 `single_game.get_data()`은 한 경기만을 다운받는 함수입니다. 그러면 이 함수를 이용해서 2018 시즌 한화의 전체 경기 자료 데이터를 다운받아 보겠습니다. 저희 팀에서 이미 이 데이터를 자료를 받기 위한 리스트를 `Hanhwa_game_id_sample.csv`에 정리해두었습니다. 이 파일을 가지고 2018 시즌 한화의 전체 경기 자료 데이터를 받아보겠습니다. 다음 코드로 다운받을 리스트를 가져오겠습니다. 리스트의 길이가 144이니 전체 경기수는 144경기가 되겠습니다. 2018 시즌 한 팀 당 경기 수가 144경기였습니다. 이 숫자는 시즌마다 변경되기도 합니다.
 
 ```python
->>> sample=pd.read_csv("./data/Hanhwa_game_id_sample.csv")
->>> sample.date=sample.date.astype(str)
+>>> sample = pd.read_csv("./data/Hanhwa_game_id_sample.csv")
+>>> sample.date = sample.date.astype(str)
 >>> sample.date
 0      20180324
 1      20180325
@@ -135,8 +135,8 @@ Name: date, Length: 144, dtype: object
 ```python
 >>> temp_full ={}
 >>> for i in range(0,len(sample)):
-...     temp_data = main.get_data(sample.date[i],sample.gameid[i])
-...     temp_data = main.modify_data(temp_data)
+...     temp_data = single_game.get_data(sample.date[i],sample.gameid[i])
+...     temp_data = single_game.modify_data(temp_data)
 ...     temp_full.update(temp_data)
 ...
 >>> len(temp_full.keys())
