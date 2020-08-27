@@ -50,7 +50,7 @@ def getting_page(gameDate,gameld):
 # temp_page=getting_page("20180816","WOOB0")
 
 def get_data(date,gameld):
-    temp_page=getting_page(date,gameld)
+    temp_page = getting_page(date,gameld)
     temp_scoreboard = scoreboard(temp_page['tables'], temp_page['teams'])
 
     temp_all = {'scoreboard':ast.literal_eval(temp_scoreboard.to_json(orient='records'))}
