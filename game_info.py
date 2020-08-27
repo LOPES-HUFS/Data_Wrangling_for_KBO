@@ -56,9 +56,11 @@ def get_data(year, month, season):
     
     [gamelist[i].insert(0, gamelist[i-1][0]) \
         for i in range(0, len(gamelist)) if len(gamelist[i])==8]
-    
-    gamelist_df = pd.DataFrame( gamelist, \
-        columns = ['날짜','시간','경기','게임센터','하이라이트','TV','라디오','구장','비고'])
+    if gamelist[0][0] ==  '데이터가 없습니다.':
+        return "Please check the date, there are no games in the month of that year."    
+    else:
+        gamelist_df = pd.DataFrame( gamelist, \
+            columns = ['날짜','시간','경기','게임센터','하이라이트','TV','라디오','구장','비고'])
     driver.close()
     return gamelist_df
 
