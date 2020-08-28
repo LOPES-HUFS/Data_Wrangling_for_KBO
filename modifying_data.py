@@ -1,6 +1,10 @@
+import ast
+import datetime
+
 import pandas as pd
+
 from pasing_page import looking_for_team_name
-import ast 
+
 
 def change_record(temp,column,factorlist):
     for i in range(0,len(temp[[str(column)]])):
@@ -71,4 +75,46 @@ def pitcher_clean(data,section):
     data[list(data.keys())[0]][section]=ast.literal_eval(temp_p.to_json(orient='records'))
     return data
 
+def get_game_info(game_list):
+                
+    #temp = list(data.keys())[0].split('_')
+    #temp_date = str(game_list.date[1])
+    temp_date = game_list.split('_')[0]
+    temp_date = datetime.datetime.strptime(temp_date.split("_")[0], '%Y%m%d')
+    temp = {"year": temp_date.year, "month": temp_date.month, "day": temp_date.day, "week": temp_date.weekday()}
+    
+    temp_team = game_list.split('_')[1]
+    temp_team = {"홈팀": temp_team[0:2], "원정팀": temp_team[2:4], "더블헤더":int(temp_team[4:])}
+    temp.update(temp_team)
+    
+    return temp
 
+def scoreboard(data):
+    """
+    Args: 
+        game_list (pd): pd.read_csv()함수로 읽은 다음과 같은 게임 리스트
+
+             date gameid
+    0    20180324  HHWO0
+    1    20180325  HHWO0
+    2    20180327  HHNC0
+    
+    Returns:
+        (json): 리스트에 들어 있는 전체 
+    """
+    i = 0
+    
+    for key, value in data.items():
+        temp_p = pd.DataFrame(value['scoreboard'])
+        game_info = get_game_info(key)
+        temp_p.loc[:, 'year'] = game_info['year']
+        temp_p.loc[:, 'month'] = game_info['month']
+        temp_p.loc[:, 'day'] = game_info['day']
+        temp_p.loc[:, 'week'] = game_info['week']
+        temp_p.loc[:, '홈팀'] = game_info['홈팀']
+        temp_p.loc[:, '원정팀'] = game_info['원정팀']
+        temp_p.loc[:, '더블헤더'] = game_info['더블헤더']
+        #print(ast.literal_eval(temp_p.to_json(orient='records')))
+        data[list(data.keys())[i]]['scoreboard'] = ast.literal_eval(temp_p.to_json(orient='records'))
+        i = i + 1
+    return data

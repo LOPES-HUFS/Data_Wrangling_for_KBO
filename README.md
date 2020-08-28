@@ -113,6 +113,7 @@ pd.DataFrame(HHLG_20200801['20200801_HHLG0']['home_pitcher'])
 앞에서 살펴본 `single_game.get_data()`은 한 경기만을 다운받는 함수입니다. 그러면 이 함수를 이용해서 2018 시즌 한화의 전체 경기 자료 데이터를 다운받아 보겠습니다. 저희 팀에서 이미 이 데이터를 자료를 받기 위한 리스트를 `Hanhwa_game_id_sample.csv`에 정리해두었습니다. 이 파일을 가지고 2018 시즌 한화의 전체 경기 자료 데이터를 받아보겠습니다. 다음 코드로 다운받을 리스트를 가져오겠습니다. 리스트의 길이가 144이니 전체 경기수는 144경기가 되겠습니다. 2018 시즌 한 팀 당 경기 수가 144경기였습니다. 이 숫자는 시즌마다 변경되기도 합니다.
 
 ```python
+>>> import pandas as pd
 >>> sample = pd.read_csv("./data/Hanhwa_game_id_sample.csv")
 >>> sample.date = sample.date.astype(str)
 >>> sample.date
@@ -130,7 +131,23 @@ pd.DataFrame(HHLG_20200801['20200801_HHLG0']['home_pitcher'])
 Name: date, Length: 144, dtype: object
 ```
 
-그러면 파이썬을 이용해서 받아보겠습니다. 시간이 생각보다 오래걸립니다.
+그러면 파이썬을 이용해서 받아보겠습니다. 시간이 생각보다 오래걸립니다. rmfot
+
+```python
+import pandas as pd
+
+sample = pd.read_csv("./data/Hanhwa_game_id_sample.csv")
+sample.date = sample.date.astype(str)
+
+import games
+
+temp = games.get_data(sample[0:2])
+temp = games.modify(temp, 'scoreboard')
+
+# 한화 경기 전체를 하려면 아래 코드 2줄을 사용하세요
+#temp = games.get_data(sample)
+#temp_temp = games.modify(temp, sample, 'scoreboard')
+```
 
 ```python
 >>> temp_full ={}
