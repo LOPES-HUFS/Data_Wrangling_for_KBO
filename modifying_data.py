@@ -84,7 +84,9 @@ def get_game_info(game_list):
     temp = {"year": temp_date.year, "month": temp_date.month, "day": temp_date.day, "week": temp_date.weekday()}
     
     temp_team = game_list.split('_')[1]
-    temp_team = {"홈팀": temp_team[0:2], "원정팀": temp_team[2:4], "더블헤더":int(temp_team[4:])}
+    temp_team = {"홈팀": looking_for_team_name(temp_team[0:2]), \
+                "원정팀": looking_for_team_name(temp_team[2:4]), \
+                "더블헤더":int(temp_team[4:])}
     temp.update(temp_team)
     
     return temp
@@ -114,7 +116,7 @@ def scoreboard(data):
         temp_p.loc[:, '홈팀'] = game_info['홈팀']
         temp_p.loc[:, '원정팀'] = game_info['원정팀']
         temp_p.loc[:, '더블헤더'] = game_info['더블헤더']
-        #print(ast.literal_eval(temp_p.to_json(orient='records')))
+        temp_p.rename(columns = {'1':'i_1', '2':'i_2', '3':'i_3', '4':'i_4', '5':'i_5', '6':'i_6', '7':'i_7', '8':'i_8', '9':'i_9', '10':'i_10', '11':'i_11', '12':'i_12'}, inplace=True)
         data[list(data.keys())[i]]['scoreboard'] = ast.literal_eval(temp_p.to_json(orient='records'))
         i = i + 1
     return data
