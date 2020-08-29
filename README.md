@@ -131,24 +131,7 @@ pd.DataFrame(HHLG_20200801['20200801_HHLG0']['home_pitcher'])
 Name: date, Length: 144, dtype: object
 ```
 
-그러면 파이썬을 이용해서 받아보겠습니다. 시간이 생각보다 오래걸립니다. rmfot
-
-```python
-import pandas as pd
-
-sample = pd.read_csv("./data/Hanhwa_game_id_sample.csv")
-sample.date = sample.date.astype(str)
-
-import games
-
-temp = games.get_data(sample[0:2])
-scoreboard = games.making_scoreboard(temp)
-batter = games.making_batter(temp)
-
-# 한화 경기 전체를 하려면 아래 코드 2줄을 사용하세요
-#temp = games.get_data(sample)
-#temp_temp = games.modify(temp, sample, 'scoreboard')
-```
+그러면 파이썬을 이용해서 받아보겠습니다. 시간이 생각보다 오래걸립니다.
 
 ```python
 >>> temp_full ={}
@@ -187,6 +170,25 @@ temp_file_name = "./sample/Hanhwa_normalseason_2018.json"
 
 with open(temp_file_name, 'w') as outfile:  
     json.dump(temp_full, outfile)
+```
+
+이제까지 한 것을 정리하여 한번에 다운받는 함수를 만들었습니다. 그리고 정리하는 함수도 만들었습니다. 이것들을 사용해 봅시다. 한화 경기 전체를 다운받는 것으로 연습하는 것은 무리가 있어서 2 경이만 다운 받는 것으로 바꿨습니다.
+
+```python
+import pandas as pd
+
+sample = pd.read_csv("./data/Hanhwa_game_id_sample.csv")
+sample.date = sample.date.astype(str)
+
+import games
+
+temp = games.get_data(sample[0:2])
+scoreboard = games.making_scoreboard(temp)
+batter = games.making_batter(temp)
+
+# 한화 경기 전체를 하려면 아래 코드 2줄을 사용하세요
+#temp = games.get_data(sample)
+#temp_temp = games.modify(temp, sample, 'scoreboard')
 ```
 
 ### KBO 전체 경기 자료 데이터를 다운 받기

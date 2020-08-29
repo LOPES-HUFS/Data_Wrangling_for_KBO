@@ -53,10 +53,10 @@ def making_batter(data):
         home_team = home_team.append(pd.DataFrame(data[i]['home_batter']),sort = True)
     
     temp = pd.concat([away_team, home_team], ignore_index = True)
-    temp = temp.fillna(0)
     temp = pd.DataFrame(temp, columns=['경기날짜','선수명','포지션','팀',"더블헤더여부",'홈팀','원정팀', \
                                        '1','2','3','4','5','6','7','8','9','10','11','12', \
                                        '안타','타수','타율','타점','득점'])
+    temp = temp.fillna(0)
     temp = temp.astype({'1': int, '2':int, '3':int, '4':int, '5':int, '6':int, '7':int, '8':int, '9':int, '10':int, '11':int, '12':int})
 
     temp.rename(columns = {'1':'i_1', '2':'i_2', '3':'i_3', '4':'i_4', '5':'i_5', '6':'i_6', '7':'i_7', '8':'i_8', '9':'i_9', '10':'i_10', '11':'i_11', '12':'i_12'}, inplace=True)
