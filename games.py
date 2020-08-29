@@ -42,6 +42,13 @@ def making_scoreboard(data):
                                   'i_7', 'i_8','i_9', 'i_10', 'i_11','i_12', \
                                   'R', 'H', 'E', 'B', '홈팀', '원정팀', '더블헤더'])
     scoreboard = scoreboard.reset_index(drop=True)
+    # 9회 말 이전에 게임이 끝나면 점수가 '-' 문자로 들어 있는데
+    # 이를 -1 숫자로 바꿔서 int 형으로 바꿀 수 있게 조작하였다.
+    scoreboard = scoreboard.replace('-', -1)
+    scoreboard = scoreboard.astype({
+            'i_1':int, 'i_2':int, 'i_3':int, 'i_4':int, 'i_5':int, \
+            'i_6':int, 'i_7':int, 'i_8':int, 'i_9':int, 'i_10':int, \
+            'i_11':int, 'i_12':int})
     return(scoreboard)
 
 def making_batter(data):
@@ -56,7 +63,12 @@ def making_batter(data):
     temp = pd.DataFrame(temp, columns=['경기날짜','선수명','포지션','팀',"더블헤더여부",'홈팀','원정팀', \
                                        '1','2','3','4','5','6','7','8','9','10','11','12', \
                                        '안타','타수','타율','타점','득점'])
-    temp = temp.fillna(0)
+    #temp = temp.fillna(0)
+    # 뛰지 않은 회에서는 값을 0으로 일괄 변경했지만, 이렇게 하면
+    # 나중에 선발 라인없과 구별이 되지 않았다. 
+    # 그래서 -1 값을 넣어서 구별하고자 한다.
+    # 또한 연장 경기가 없어도 9회 이상의 열이 있는데 이것도 -1 로 표현한다.
+    temp = temp.fillna(-1)
     temp = temp.astype({'1': int, '2':int, '3':int, '4':int, '5':int, '6':int, '7':int, '8':int, '9':int, '10':int, '11':int, '12':int})
 
     temp.rename(columns = {'1':'i_1', '2':'i_2', '3':'i_3', '4':'i_4', '5':'i_5', '6':'i_6', '7':'i_7', '8':'i_8', '9':'i_9', '10':'i_10', '11':'i_11', '12':'i_12'}, inplace=True)
