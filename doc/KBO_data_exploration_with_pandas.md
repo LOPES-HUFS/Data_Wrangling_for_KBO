@@ -31,14 +31,33 @@ for i in range(2010, 2021):
 win, loss
 ```
 
-한화 승 그래프 그리기
+## 그래프 그리기
 
 ```python
 import matplotlib.pyplot as plt
 %matplotlib inline
+```
+
+한화 승패 그래프 그리기
+
+```python
 
 hanhwa = {"win": win, "loss": lose}
 hanhwa = pd.DataFrame(hanhwa, index=list(range(2010, 2021)))
 
 hanhwa.plot();
+```
+
+두산 에러 그래프 그리기
+
+```python
+team = []
+
+for i in range(2010, 2021):
+    temp = sum(scoreboard[(scoreboard['팀'] == "두산")&(scoreboard['year'] == i)]["E"])
+    team.append(temp)
+
+team = pd.Series(team, index=list(range(2010, 2021)))
+
+team.plot();
 ```
