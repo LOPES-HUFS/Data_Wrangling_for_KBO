@@ -185,6 +185,7 @@ import games
 temp = games.get_data(sample[0:2])
 scoreboard = games.making_scoreboard(temp)
 batter = games.making_batter(temp)
+pitcher = games.making_pitcher(temp)
 
 # 한화 경기 전체를 하려면 아래 코드 2줄을 사용하세요
 #temp = games.get_data(sample)

@@ -73,3 +73,37 @@ def making_batter(data):
     temp.pop('경기날짜')
 
     return temp
+
+def making_pitcher(data):
+    away_team = pd.DataFrame()
+    home_team = pd.DataFrame()
+
+    for i in data.keys():
+        away_team = away_team.append(pd.DataFrame(data[i]['away_pitcher']),sort = True)
+        home_team = home_team.append(pd.DataFrame(data[i]['away_pitcher']),sort = True)
+    
+    temp = pd.concat([away_team, home_team], ignore_index = True)
+    temp = pd.DataFrame(temp,
+                            columns=['경기날짜','선수명','포지션','팀','더블헤더여부','홈팀','원정팀','등판', 'inning', 'restinning', '승리','패배','무승부','세이브','홀드','삼진','4사구','실점','자책','투구수','피안타','피홈런', '타수', '타자'])
+    temp = temp.fillna(0)
+    temp.rename(columns = {'inning':'이닝'}, inplace=True)
+    temp.rename(columns = {'restinning':'잔여이닝'}, inplace=True)
+    temp.rename(columns = {'더블헤더여부':'더블헤더'}, inplace=True)
+    temp.rename(columns = {'승리':'승'}, inplace=True)
+    temp.rename(columns = {'패배':'패'}, inplace=True)
+    temp.rename(columns = {'4사구':'사사구'}, inplace=True)
+
+    temp["경기날짜"] = pd.to_datetime(temp['경기날짜'], format='%Y-%m-%d')
+
+    temp.loc[:, 'year'] = temp['경기날짜'].dt.year
+    temp.loc[:, 'month'] = temp['경기날짜'].dt.month
+    temp.loc[:, 'day'] = temp['경기날짜'].dt.day
+    temp.loc[:, 'week'] = temp['경기날짜'].dt.dayofweek
+    temp.pop('경기날짜')
+    
+    temp = pd.DataFrame(temp, columns=['year', 'month', 'day', 'week', \
+                                       '선수명', '포지션', '팀', '더블헤더여부', '홈팀', '원정팀',\
+                                       '등판', 'inning', 'restinning', '승리', '패배', '무승부', '세이브', \
+                                       '홀드','삼진','사사구','실점','자책','투구수','피안타','피홈런', '타수', '타자'])
+
+    return temp
