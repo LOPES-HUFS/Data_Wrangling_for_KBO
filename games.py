@@ -5,7 +5,7 @@ import pandas as pd
 
 import single_game
 import modifying_data
-import player_id
+import player
 
 def get_data(game_list):
     """
