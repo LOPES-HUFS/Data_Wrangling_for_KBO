@@ -5,6 +5,7 @@ import pandas as pd
 
 import single_game
 import modifying_data
+import player_id
 
 def get_data(game_list):
     """
@@ -118,6 +119,7 @@ def making_batter(data):
     temp.loc[:, 'day'] = temp['경기날짜'].dt.day
     temp.loc[:, 'week'] = temp['경기날짜'].dt.dayofweek
     temp.pop('경기날짜')
+    temp = player_id.make_player_id(temp)
 
     return temp
 
@@ -153,4 +155,5 @@ def making_pitcher(data):
                                        '등판', '이닝', '잔여이닝', '승리', '패배', '무승부', '세이브', \
                                        '홀드','삼진','사사구','실점','자책','투구수','피안타','피홈런', '타수', '타자'])
 
+    temp = player_id.make_player_id(temp)    
     return temp
