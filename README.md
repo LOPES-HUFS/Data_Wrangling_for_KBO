@@ -183,13 +183,22 @@ sample.date = sample.date.astype(str)
 import games
 
 temp = games.get_data(sample[0:2])
-scoreboard = games.making_scoreboard(temp)
-batter = games.making_batter(temp)
-pitcher = games.making_pitcher(temp)
+# 시간을 줄이이기 위해 
+# 한화 경기 전체를 다운 받고 처리하려면 윗 줄 대신 아랫 줄 코드를 사용하세요
+# temp = games.get_data(sample)
+Hanhwa_scoreboard = games.making_scoreboard(temp)
+Hanhwa_batter = games.making_batter(temp)
+Hanhwa_pitcher = games.making_pitcher(temp)
+```
 
-# 한화 경기 전체를 하려면 아래 코드 2줄을 사용하세요
-#temp = games.get_data(sample)
-#temp_temp = games.modify(temp, sample, 'scoreboard')
+지금까지 만든 것을 바로 사용해도 좋지만, 저장해서 필요할 때 사용하는 경우가 많으니 이를 저장하도록 하겠습니다. 보통 이런 자료는 `csv`형식으로 저장하는데, 실제로 KBO 전제 자료를 저장하다 보면, 너무 커지기 때문에, 자료를 압축하고 효율적으로 저장하는 `parquet`형식으로 저장하겠습니다. 이 형식에 관련 내용은 [Apache Parquet](https://parquet.apache.org/)을 보시면 됩니다. pandas에 이 형식으로 저장하는 기능, [pandas.read_parquet](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_parquet.html)을 제공하고 있으니 이를 사용해서 저장하보겠습니다.
+
+```python
+pip3 install pyarrow
+
+Hanhwa_scoreboard.to_parquet('./sample/Hanhwa_scoreboard_data_2018.parquet')
+Hanhwa_batter.to_parquet('./sample/Hanhwa_batter_data_2018.parquet')
+Hanhwa_pitcher.to_parquet('./sample/Hanhwa_pitcher_data_2018.parquet')
 ```
 
 ### KBO 전체 경기 자료 데이터를 다운 받기
