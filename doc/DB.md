@@ -153,4 +153,3 @@ with open('./sample/Hanhwa_pitcher_data_2018.csv', 'rt') as fin:
     cin = csv.DictReader(fin)
     villains = [row for row in cin]
 ```
-
