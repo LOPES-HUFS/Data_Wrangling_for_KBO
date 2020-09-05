@@ -98,6 +98,7 @@ def make_player_id(data):
     tempdata["id"] = ""
     player_info = tempdata[["선수명","팀","year"]].drop_duplicates()
     player_info.index = range(0,len(player_info))
+    player_info["팀"] = player_info["팀"].replace("넥센","키움")
     for i in range(0,len(player_info)):
         tempdata = match_id(tempdata,player_info.선수명[i],player_info.year[i],player_info.팀[i])
     
