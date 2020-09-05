@@ -21,20 +21,20 @@ temp = players.searching_players(temp_players)
 
 ## 타자 포지션 표기 변경하기
 
-KBO 선수들은 하나의 포지션을 가질 때도 있지만 경기가 진행됨에 따라 다른 포지션으로 변경되는 경우도 종종 있습니다. 현재 타자 선수들의 포지션의 고유 값은 96가지입니다. 96가지나 되는 이유는 투수와 지명타자를 포함하여 총 10가지의 단일한 포지션에서 파생된 경우의 수입니다. 게다가 한자와 한글이 병기된 표기를 하고 있기에 쉽게 알아보기 힘듭니다. 이에 따라 표기 방식 통일을 위해 숫자와 영문을 이용한 표기로 변경해 줍니다. 임의의 숫자와 영문 표기로 바꾸는 것이 아닌 야구 경기의 기록 규칙에 따라 숫자와 영문을 적용해줍니다. 선수들의 포지션에 숫자는 [KBO 기록위원회](https://www.koreabaseball.com/About/Committee/RecordRaw.aspx)의 수비 위치 기호에 따라 정했으며, 대타의 경우 타자를 의미하는 H 대주자의 경우 주자를 의미하는 R로 지정했습니다. 이제 직접 선수들의 포지션을 변경해 봅시다.
+KBO 선수들은 하나의 포지션을 가질 때도 있지만 경기가 진행됨에 따라 다른 포지션으로 변경되는 경우도 종종 있습니다. 전체 데이터에서 보면 타자 선수들의 포지션 고유 값은 96가지입니다. 96가지나 되는 이유는 투수와 지명타자를 포함하여 총 10가지의 단일한 포지션에서 파생된 경우의 수입니다. 게다가 한자와 한글이 병기된 표기를 하고 있기에 쉽게 알아보기 힘듭니다. 이에 따라 표기 방식 통일을 위해 숫자와 영문을 이용한 표기로 변경해 줍니다. 임의의 숫자와 영문 표기로 바꾸는 것이 아닌 야구 경기의 기록 규칙에 따라 숫자와 영문을 적용해줍니다. 선수들의 포지션에 숫자는 [KBO 기록위원회](https://www.koreabaseball.com/About/Committee/RecordRaw.aspx)의 수비 위치 기호에 따라 정했으며, 대타의 경우 타자를 의미하는 H 대주자의 경우 주자를 의미하는 R로 지정했습니다. 이제 직접 선수들의 포지션을 변경해 봅시다.
 
-필요한 라이브러리를 import 하고 타자 데이터를 읽어 옵니다.
+필요한 라이브러리를 import 하고 한화 선수들의 타자 데이터를 읽어 옵니다.
 
 ```python
 import pandas as pd
 
-batter_data = pd.read_csv("./KBO_batter_data_full.csv")
+hanhwa_batter_data = pd.read_csv("./sample/Hanhwa_batter_data_2018.csv")
 ```
 
-고유 포지션 수를 확인해 봅니다. 
+고유 포지션 수를 확인해 봅니다.
 
 ```python
-len(batter_data["포지션"].unique())
+len(hanhwa_batter_data["포지션"].unique())
 
 ```
 
@@ -77,14 +77,14 @@ def change_posision(data):
 데이터에 만든 함수를 적용해 줍니다. 이 함수를 두번 적용해야하는데 포지션이 변경된 경우가 있기 때문에 한번만에 완전히 바뀌지 않기 때문입니다.
 
 ```python
-new_position_temp = [change_posision(i) for i in batter_data["포지션"]]
+new_position_temp = [change_posision(i) for i in hanhwa_batter_data["포지션"]]
 new_position = [change_posision(i) for i in new_position_temp]
 ```
 
 이제 새로운 포지션 데이터를 데이터에 붙여줍니다. `copy()` 를 쓰는 이유는 원본 데이터를 보존하기 위해서 입니다.  
 
 ```python
-batter_temp = batter_data.copy()
+batter_temp = hanhwa_batter_data.copy()
 batter_temp["포지션"] = new_position
 ```
 
