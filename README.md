@@ -220,3 +220,49 @@ temp_file_name = "./data/KBO_normalseason_full.json"
 with open(temp_file_name, 'w') as outfile:  
     json.dump(full_data, outfile)
 ```
+
+## 저장한 자료를 이용하는 몇 가지 방법
+
+앞에서 만든 것을 이용하는 방법을 몇 가지 소개해보겠습니다.
+
+### 스코어보드를 이용한 자료 다루기
+
+앞의 과정을 거쳐 만든 스코어보드 자료를 열어서 2010년부터 최근까지 두산, 한화, LG 에러 숫자를 비교하는 그래프를 그려보겠습니다. 우선 자료를 가져오겠습니다. 자료 확인 할 겸 2019년 승수를 뽑아보겠습니다.
+
+```python
+import pandas as pd
+
+scoreboard = pd.read_parquet('./sample/scoreboard.parquet')
+scoreboard
+sum(scoreboard[(scoreboard['팀'] == "한화")&(scoreboard['year'] == 2019)]["승패"] == "승")
+```
+
+그러면 본격적으로 세 팀의 에러 숫자를 뽑아봅아 pandas를 이용해서 정리해보겠습니다.
+
+```python
+team_1 = []
+team_2 = []
+team_3 = []
+
+for i in range(2010, 2021):
+    temp = sum(scoreboard[(scoreboard['팀'] == "두산")&(scoreboard['year'] == i)]["R"])
+    team_1.append(temp)
+    temp = sum(scoreboard[(scoreboard['팀'] == "한화")&(scoreboard['year'] == i)]["R"])
+    team_2.append(temp)
+    temp = sum(scoreboard[(scoreboard['팀'] == "LG")&(scoreboard['year'] == i)]["R"])
+    team_3.append(temp)
+
+teams = {"Dusan": team_1, "hanhwa": team_2, "LG": team_3}
+teams = pd.DataFrame(teams, index=list(range(2010, 2021)))
+teams
+```
+
+이렇게 정리한 것을 [Matplotlib: Python plotting — Matplotlib 3.3.1 documentation](https://matplotlib.org/)을 이용하여 도표로 그려보겠습니다.
+
+```python
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+%matplotlib inline
+
+teams.plot()
+```
