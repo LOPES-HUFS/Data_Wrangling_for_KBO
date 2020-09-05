@@ -27,7 +27,7 @@ def get_data(game_list):
         temp_data = single_game.get_data(game_list.date[i], game_list.gameid[i])
         temp_data = single_game.modify_data(temp_data)
         data.update(temp_data)
-    
+        print(i, game_list.date[i], game_list.gameid[i])
     return data
 
 def making_scoreboard(data):
