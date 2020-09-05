@@ -51,6 +51,37 @@ def making_scoreboard(data):
             'i_11':int, 'i_12':int})
     return(scoreboard)
 
+def change_posision(data):
+    '''
+    data = pandas DF
+    '''
+    if '一' in data:
+        data = data.replace("一","3")
+    elif '二' in data: 
+        data = data.replace("二","4")
+    elif '三' in data:
+        data = data.replace("三","5")
+    elif "투" in data:
+        data = data.replace("투","1")
+    elif "포" in data:
+        data = data.replace("포","2")
+    elif "유" in data:
+        data = data.replace("유","6")
+    elif "좌" in data:
+        data = data.replace("좌","7")
+    elif "중" in data:
+        data = data.replace("중","8")
+    elif "우" in data:
+        data = data.replace("우","9")
+    elif "지" in data:
+        data = data.replace("지","D")
+    elif "주" in data:
+        data = data.replace("주","R")
+    elif "타" in data:
+        data = data.replace("타","H")
+    return data
+
+
 def making_batter(data):
     away_team = pd.DataFrame()
     home_team = pd.DataFrame()
@@ -63,6 +94,10 @@ def making_batter(data):
     temp = pd.DataFrame(temp, columns=['경기날짜','선수명','포지션','팀',"더블헤더여부",'홈팀','원정팀', \
                                        '1','2','3','4','5','6','7','8','9','10','11','12', \
                                        '안타','타수','타율','타점','득점'])
+
+    new_position_temp = [change_posision(i) for i in temp["포지션"]]
+    new_position = [change_posision(i) for i in new_position_temp] 
+    temp["포지션"] = new_position                                  
     #temp = temp.fillna(0)
     # 뛰지 않은 회에서는 값을 0으로 일괄 변경했지만, 이렇게 하면
     # 나중에 선발 라인없과 구별이 되지 않았다. 
