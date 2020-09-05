@@ -64,15 +64,16 @@ def match_id(data,name,year,team):
     Returns:
         data(pandas DF): id가 입력된 타자 또는 투수 데이터
     '''
+    new_data = data.copy()
     year = str(year)
     id_list = get_id(name)
     if len(id_list)==1:
-        data.id[data["선수명"]==name] = int(id_list[0])
+        new_data.id[data["선수명"]==name] = int(id_list[0])
     elif len(id_list)==0:
         if check_rename(name) != "not_rename_player":
             newname = check_rename(name)
             id_list = get_id(newname)
-            data.id[data["선수명"]==name] = int(id_list[0])
+            new_data.id[data["선수명"]==name] = int(id_list[0])
         else:
             error.append([name,year,team])
     else:
@@ -80,10 +81,10 @@ def match_id(data,name,year,team):
         id_list = list(find_id(name,year,team)[0])
         if len(id_list)>=2:
             print("check_record")
-            data.id[(data["선수명"]==name) & (data.팀.isin([team])) & (data.year.isin([year]))] = 0
+            new_data.id[(data["선수명"]==name) & (new_data.팀.isin([team])) & (new_data.year.isin([year]))] = 0
         else:
-            data.id[(data["선수명"]==name) & (data.팀.isin([team])) & (data.year.isin([year]))] = int(id_list[0])
-    return data
+            new_data.id[(data["선수명"]==name) & (new_data.팀.isin([team])) & (new_data.year.isin([year]))] = int(id_list[0])
+    return new_data
 
 
 def make_player_id(data):
