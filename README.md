@@ -223,7 +223,10 @@ with open(temp_file_name, 'w') as outfile:
 
 ## 저장한 자료를 이용하는 몇 가지 방법
 
-앞에서 만든 것을 이용하는 방법을 몇 가지 소개해보겠습니다.
+앞에서 만든 것을 이용하여 데이터를 살펴보는 방법을 몇 가지 소개해보겠습니다. 더 많은 방법은 다음 링크를 참고하세요! R과 python에서 pandas를 사용하는 방법을 소개하고자 합니다.
+
+- [KBO_data_exploration_with_R](https://github.com/LOPES-HUFS/Data_Wrangling_for_KBO/blob/master/doc/KBO_data_exploration_with_R.md)
+- [Data_Wrangling_for_KBO/KBO_data_exploration_with_pandas](https://github.com/LOPES-HUFS/Data_Wrangling_for_KBO/blob/master/doc/KBO_data_exploration_with_pandas.md)
 
 ### 스코어보드를 이용한 자료 다루기
 
