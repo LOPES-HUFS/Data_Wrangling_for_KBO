@@ -183,7 +183,7 @@ sample.date = sample.date.astype(str)
 import games
 
 temp = games.get_data(sample[0:2])
-# 시간을 줄이이기 위해 
+# 시간을 줄이이기 위해서 우선 2개만 다운받아서 처리하는 것으로 변경했습니다.
 # 한화 경기 전체를 다운 받고 처리하려면 윗 줄 대신 아랫 줄 코드를 사용하세요
 # temp = games.get_data(sample)
 Hanhwa_scoreboard = games.making_scoreboard(temp)
@@ -257,7 +257,7 @@ teams = pd.DataFrame(teams, index=list(range(2010, 2021)))
 teams
 ```
 
-이렇게 정리한 것을 [Matplotlib: Python plotting — Matplotlib 3.3.1 documentation](https://matplotlib.org/)을 이용하여 도표로 그려보겠습니다.
+이렇게 정리한 것을 [Matplotlib](https://matplotlib.org/)을 이용하여 도표로 그려보겠습니다.
 
 ```python
 import matplotlib.pyplot as plt
