@@ -144,6 +144,37 @@ pitcher = pd.read_parquet('./sample/Hanhwa_pitcher_data_2018.parquet')
 df.to_parquet('sample.parquet', compression='gzip')
 ```
 
+## hdf5 포멧으로 저장하고 읽기
+
+```python
+pip3 install tables
+
+import tables as tb
+import datetime as dt
+import pandas as pd
+import json
+import time
+import datetime
+
+h5File = "test.h5"
+
+temp_file_name = "./sample/Hanhwa_normalseason_2018.json"
+with open(temp_file_name) as outfile:  
+    hanhwa_data=json.load(outfile)
+
+import games
+
+Hanhwa_scoreboard = games.making_scoreboard(hanhwa_data)
+
+h5File = "test.h5"
+
+# 파일에 쓰기
+Hanhwa_scoreboard.to_hdf(h5File, "/Hanhwa_scoreboard");
+
+# 앞에서 저장한 파일 읽기
+temp_Hanhwa_scoreboard = pd.read_hdf('test.h5', 'Hanhwa_scoreboard')
+```
+
 ## temp
 
 아래는 테스트 코드 입니다.
