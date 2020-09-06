@@ -9,11 +9,23 @@
 ```R
 install.packages("RSQLite")
 install.packages("tidyverse")
+install.packages("arrow")
+```
+
+## 기초 셋팅
+
+우선 R을 실행한 다음 working Dictionary를 변경합시다. 다음과 같이 입력했을 때 아래와 같은 결과 나오면 됩니다.
+
+```R
+> dir()
+ [1] "__pycache__"       "backup.db"         "config.ini"        "data"              "doc"               "game_info.py"      "games.py"          "LICENSE"
+ [9] "modifying_data.py" "notebook.ipynb"    "pasing_page.py"    "player.py"         "players.py"        "README.md"         "sample"            "single_game.py"
+[17] "test.db"           "test.h5"           "testing.py"        "Untitled.ipynb"
 ```
 
 ## 사용법
 
-만들어 놓은 자료를 R을 이용해서 SQLite에 올려봅시다.
+만들어 놓은 자료를 R을 이용해서 SQLite에 올려봅시다. 여기서는 외부 DB를 사용하는 것을 상정하고 만들었기 때문에 SQLite을 이용하여 DB를 사용하는 작업 환경을 설정하고 있습니다.
 
 ```R
 library(tidyverse)
@@ -65,4 +77,269 @@ batter %>%
 
 ```R
 dbListTables(con)
+```
+
+## 스코어 자료를 이용한 팀 데이터 분석
+
+우선 필요한 것들을 라이브러리를 챙깁니다.
+
+```R
+library(arrow)
+library(tidyverse)
+library(lubridate)
+```
+
+스코어보드 자료를 가져옵니댜.
+
+```R
+scoreboard <- read_parquet("sample/scoreboard.parquet")
+```
+
+앞에서 기초 세팅을 안 해서 위의 것이 작동을 안 하시는 분은 다음과 같이 해서 직접 다운 받아서 하시면 됩니다.
+
+```R
+url <- "https://raw.githubusercontent.com/LOPES-HUFS/Data_Wrangling_for_KBO/master/sample/scoreboard.parquet"
+download.file(url = url, destfile ="scoreboard.parquet"
+scoreboard <- read_parquet("scoreboard.parquet")
+```
+
+현재 `scoreboard`에는 날짜가 복잡하게 다음과 같이 들어 있습니다.
+
+```R
+> scoreboard %>%
++ select(year, month, day)
+# A tibble: 13,614 x 3
+    year month   day
+   <int> <int> <int>
+ 1  2010     3    27
+ 2  2010     3    27
+ 3  2010     3    27
+ 4  2010     3    27
+ 5  2010     3    27
+ 6  2010     3    27
+ 7  2010     3    27
+ 8  2010     3    27
+ 9  2010     3    28
+10  2010     3    28
+# … with 13,604 more rows
+
+```
+
+이를 쉽게 사용하는 방법은 다음과 같습니다. `make_date()`로 시계열 날짜를 만들 수 있습니다. 만약 시분초까지 추가하고 싶다면 `make_datetime()`을 대신 사용하면 됩니다. 현재 자료에는 그런 것이 없기 때문에 아래와 같이 사용하면 됩니다.
+
+```R
+> scoreboard %>%
++ select(year, month, day) %>%
++ mutate(date = make_date(year, month, day))
+# A tibble: 13,614 x 4
+    year month   day date
+   <int> <int> <int> <date>
+ 1  2010     3    27 2010-03-27
+ 2  2010     3    27 2010-03-27
+ 3  2010     3    27 2010-03-27
+ 4  2010     3    27 2010-03-27
+ 5  2010     3    27 2010-03-27
+ 6  2010     3    27 2010-03-27
+ 7  2010     3    27 2010-03-27
+ 8  2010     3    27 2010-03-27
+ 9  2010     3    28 2010-03-28
+10  2010     3    28 2010-03-28
+# … with 13,604 more rows
+```
+
+현재 입력된 자료에는 팀명이 다음과 같이 문자열로 들어 습니다.
+
+```R
+> scoreboard %>%
++ select(팀, 홈팀, 원정팀)
+# A tibble: 13,614 x 3
+   팀    홈팀  원정팀
+   <chr> <chr> <chr>
+ 1 기아  기아  두산  
+ 2 두산  기아  두산  
+ 3 한화  한화  SK
+ 4 SK    한화  SK
+ 5 LG    LG    삼성  
+ 6 삼성  LG    삼성  
+ 7 키움  키움  롯데  
+ 8 롯데  키움  롯데  
+ 9 한화  한화  SK
+10 SK    한화  SK
+# … with 13,604 more rows
+```
+
+이를 팩터형으로 바꿔보면 다음과 같이 동일합니다. 당연합니다. ^^;
+
+```R
+> levels(factor(scoreboard$팀))
+ [1] "기아" "두산" "롯데" "삼성" "키움" "한화" "KT"   "LG"   "NC"   "SK"  
+> levels(factor(scoreboard$홈팀))
+ [1] "기아" "두산" "롯데" "삼성" "키움" "한화" "KT"   "LG"   "NC"   "SK"  
+> levels(factor(scoreboard$원정팀))
+ [1] "기아" "두산" "롯데" "삼성" "키움" "한화" "KT"   "LG"   "NC"   "SK"  
+```
+
+그리고 승패도 바꾸보면 아래와 같이 됩니다.
+
+```R
+> levels(factor(scoreboard$승패))
+[1] "무" "승" "패"
+```
+
+그러면 지금까지 한 것을 토대로 `scoreboard`에서 승패만 뽑아봅아 새로운 `tibble`을 만들어 봅시다.
+
+```R
+scoreboard_win <- scoreboard %>%
+    mutate(
+        date = make_date(year, month, day),
+        team = factor(팀),
+        home_team = factor(팀) == factor(홈팀),
+        win = factor(scoreboard$승패)
+    ) %>%
+    select(date, team, home_team, win)
+```
+
+홈팀이 두산팀만 뽑고 싶다면,
+
+```R
+scoreboard_win %>%
+    filter(team == "두산")
+```
+
+결과는 다음과 같습니다.
+
+```R
+> scoreboard_win %>%
++     filter(team == "두산")
+# A tibble: 1,468 x 4
+   date       team  home_team win  
+   <date>     <fct> <lgl>     <fct>
+ 1 2010-03-27 두산  FALSE     승
+ 2 2010-03-28 두산  FALSE     승
+ 3 2010-03-30 두산  TRUE      승
+ 4 2010-04-02 두산  TRUE      승
+ 5 2010-04-03 두산  TRUE      패
+ 6 2010-04-04 두산  TRUE      승
+ 7 2010-04-06 두산  FALSE     승
+ 8 2010-04-07 두산  FALSE     승
+ 9 2010-04-08 두산  FALSE     승
+10 2010-04-09 두산  FALSE     무
+# … with 1,458 more rows
+```
+
+위의 결과를 조금 더 확장해서, 두산의 연도별 승패를 뽑아보겠습니다.
+
+- 1번째 줄에서 두산 자료만 뽑고,
+- 2번째 줄은 `select`은 필요한 날짜, 승패를 선택한 다음,
+- 3번째 줄은 date에서 year를 뽑아 새로은 행으로 만들고,
+- 4번째 줄은 앞에서 뽑은 year으로 묶은 다음,
+- 5번째 줄은 이렇게 묶은 것을 승패를 계산하게 됩니다.
+
+```R
+scoreboard_win %>%
+    filter(team == "두산") %>%
+    select(date, win) %>%
+    mutate(year = factor(year(date))) %>%
+    group_by(year) %>%
+    count(win)
+```
+
+결과는 다음과 같습니다.
+
+```R
+> scoreboard_win %>%
++     filter(team == "두산") %>%
++     select(date, win) %>%
++     mutate(year = factor(year(date))) %>%
++     group_by(year) %>%
++     count(win)
+# A tibble: 31 x 3
+# Groups:   year [11]
+   year  win       n
+   <fct> <fct> <int>
+ 1 2010  무        3
+ 2 2010  승       73
+ 3 2010  패       57
+ 4 2011  무        2
+ 5 2011  승       61
+ 6 2011  패       70
+ 7 2012  무        3
+ 8 2012  승       68
+ 9 2012  패       62
+10 2013  무        3
+# … with 21 more rows
+```
+
+앞에서 작업한 것을 토대로 그래프를 그리면 다음과 같습니다. 앞에서 year를 `factor`으로 바꾸지 않으면, year가 숫자로 남기 때문에 그래프가 이쁘지 않습니다. x축은 연도(year), y축은 승패숫자(win)를 계산한 결과, `fill=win`은 win에 승,패,무라는 항목이 있는데 이를 따로 분리해서 그려보게 만드는 것입니다.
+
+```R
+temp <- scoreboard_win %>%
+    filter(team == "두산") %>%
+    select(date, win) %>%
+    mutate(year = factor(year(date))) %>%
+    group_by(year) %>%
+    count(win)
+
+ggplot(data = temp, aes(x = year, y = n, fill=win)) +
+    geom_bar(stat="identity", position=position_dodge())
+```
+
+이번에는 주별 승패 결과를 세어본 것입니다.
+
+```R
+scoreboard_win %>%
+    filter(team == "두산") %>%
+    select(date, win) %>%
+    mutate(wday = wday(date, label = TRUE)) %>%
+    group_by(wday) %>%
+    count(win)
+```
+
+아래 결과를 보시면 바로 아실 수 있습니다.
+
+```R
+> scoreboard_win %>%
++     filter(team == "두산") %>%
++     select(date, win) %>%
++     mutate(wday = wday(date, label = TRUE)) %>%
++     group_by(wday) %>%
++     count(win)
+# A tibble: 20 x 3
+# Groups:   wday [7]
+   wday  win       n
+   <ord> <fct> <int>
+ 1 일    무        2
+ 2 일    승      139
+ 3 일    패      107
+ 4 월    승        8
+ 5 월    패        5
+ 6 화    무        5
+ 7 화    승      135
+ 8 화    패       89
+ 9 수    무        2
+10 수    승      130
+11 수    패      108
+12 목    무        2
+13 목    승      141
+14 목    패      109
+15 금    무        3
+16 금    승      134
+17 금    패      100
+18 토    무        5
+19 토    승      133
+20 토    패      111
+```
+
+앞에서 만든 것으로 그래프를 그려봅시다. 화요일은 당연히 경기가 없는 날이니 결과가 적습니다.
+
+```R
+temp <- scoreboard_win %>%
+    filter(team == "두산") %>%
+    select(date, win) %>%
+    mutate(wday = wday(date, label = TRUE)) %>%
+    group_by(wday) %>%
+    count(win)
+
+ggplot(data = temp, aes(x = wday, y = n, fill=win)) +
+    geom_bar(stat="identity", position=position_dodge())
 ```
