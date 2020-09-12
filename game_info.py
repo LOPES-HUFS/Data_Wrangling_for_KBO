@@ -131,3 +131,17 @@ def get_year_game_info_until_now():
         monthly_data = modify_data(year, temp)
         result = result.append(monthly_data)
     return result
+
+def get_month_game_info_until_now():
+    """
+    현재를 기준으로 올해 이번 달 정규 시즌 데이터를 받기 위해 게임 정보를 받아오는 함수 
+    """
+    
+    now = datetime.now()
+
+    temp = get_data(now.year, now.month, "정규")
+    game_id = modify_data(now.year, temp)
+
+    temp = pd.to_datetime(game_id['date']) < now 
+
+    return game_id[temp]
