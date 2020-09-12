@@ -38,3 +38,20 @@ temp = game_info.get_year_game_info_until_now()
 import game_info
 temp = game_info.get_month_game_info_until_now()
 ```
+
+참고로 위에서 만든 코드를 가지고 모은 일정 자료를 가지고 실제 경기 자료를 모으려면 다음과 같이 하면 됩니다. 시간이 오래걸릴 수도 있기 때문에 주의하시기 바랍니다. 테스트만 하고 싶은 분은 아래 주석처리된 `games.get_data(temp[:1])`을 실행시키면 됩니다.
+
+```python
+import game_info
+import games
+temp = game_info.get_month_game_info_until_now()
+# games.get_data(temp[:1])
+ this_month_games = games.get_data(temp)
+```
+
+만약 앞에서 저장한 이번 달 경기 자료를 `csv`형식으로 저장하고자 한다면 다음과 같이 하면 됩니다.
+
+```python
+temp_data = temp[['date','gameid']]
+temp_data.to_csv("data/temp_schedule.csv", index = False)
+```
