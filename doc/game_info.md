@@ -77,7 +77,7 @@ data.update(temp_data)
 
 ```python
 import json
-file_name = 'data/temp_data_9_1_to_9_15.json'
+file_name = 'data/temp_data.json'
 with open(file_name, 'w') as outfile:
     json.dump(data, outfile)
 ```
