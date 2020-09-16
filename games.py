@@ -7,8 +7,10 @@ import single_game
 import modifying_data
 import player
 
-def get_data(game_list):
+def get_data(game_list, number = 0):
     """
+    디폴트는 game_list 0부터 시작하지만, 
+    번호를 넣으시면 game_list에서 그 번호부터 시작하게 됩니다.
     Args: 
         game_list (pd): pd.read_csv()함수로 읽은 다음과 같은 게임 리스트
 
@@ -23,11 +25,34 @@ def get_data(game_list):
 
     data={}
 
-    for i in range(0,len(game_list)):
-        temp_data = single_game.get_data(game_list.date[i], game_list.gameid[i])
-        temp_data = single_game.modify_data(temp_data)
-        data.update(temp_data)
-        print(i, game_list.date[i], game_list.gameid[i])
+    if number != 0:
+        try:
+            for i in range(number, len(game_list)):
+                temp_data = single_game.get_data(
+                            game_list.date[i], game_list.gameid[i])
+                temp_data = single_game.modify_data(temp_data)
+                data.update(temp_data)
+                print(f'Download complete: {i}',\
+                        game_list.date[i], game_list.gameid[i])
+
+        except:
+            print(f'error: {i}', \
+                    game_list.date[i], game_list.gameid[i])
+
+    else:
+        try:
+            for i in range(0, len(game_list)):
+                temp_data = single_game.get_data(
+                            game_list.date[i], game_list.gameid[i])
+                temp_data = single_game.modify_data(temp_data)
+                data.update(temp_data)
+                print(f'Download complete: {i}',\
+                        game_list.date[i], game_list.gameid[i])
+    
+        except:
+            print(f'error: {i}', \
+                    game_list.date[i], game_list.gameid[i])
+
     return data
 
 def making_scoreboard(data):

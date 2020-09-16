@@ -39,19 +39,45 @@ import game_info
 temp = game_info.get_month_game_info_until_now()
 ```
 
-참고로 위에서 만든 코드를 가지고 모은 일정 자료를 가지고 실제 경기 자료를 모으려면 다음과 같이 하면 됩니다. 시간이 오래걸릴 수도 있기 때문에 주의하시기 바랍니다. 테스트만 하고 싶은 분은 아래 주석처리된 `games.get_data(temp[:1])`을 실행시키면 됩니다.
-
-```python
-import game_info
-import games
-temp = game_info.get_month_game_info_until_now()
-# games.get_data(temp[:1])
- this_month_games = games.get_data(temp)
-```
-
 만약 앞에서 저장한 이번 달 경기 자료를 `csv`형식으로 저장하고자 한다면 다음과 같이 하면 됩니다.
 
 ```python
 temp_data = temp[['date','gameid']]
 temp_data.to_csv("data/temp_schedule.csv", index = False)
+```
+
+참고로 위에서 만든 코드를 가지고 모은 일정 자료를 가지고 실제 경기 자료를 모으려면 다음과 같이 하면 됩니다. 시간이 오래걸릴 수도 있기 때문에 주의하시기 바랍니다. 테스트만 하고 싶은 분은 아래 주석처리된 `games.get_data(temp[:1])`을 실행시키면 됩니다. 이렇게 하면 1개만 자료를 가져올 것입니다. 수집한 일정 모두를 이용하려면 `get_data(temp)`을 실행하시면 됩니다.
+
+```python
+import game_info
+import games
+import single_game
+
+temp = game_info.get_month_game_info_until_now()
+# temp_data = games.get_data(temp[:1])
+data = games.get_data(temp)
+```
+
+만약 에러가 나서, 모든 일정을 다 수집하지 못 하고 끝날 경우에는 다시 처음부터 수집하지 않으셔도 됩니다. `games.get_data()`은 에러가 발생하기전까지 수잡한 자료를 가지고 있습니다. 만약 26번에서 에러가 났다면, 그 에러가 발생한 원인을 해결하신 다음, 아래와 같이 26번째부터 다시 받기 시작해서 애러가 발생하기 전까지 받은 것과 합치시면 됩니다. 참고로 에러가 발생한 이유가 수집한 일정이 잘못 되어서 발생했다면, 예를 들어 날짜와 게임 아이디가 문제가 되서 발생한 것이라면, 이 원인을 찾고 올바른 것을 알게 되었다면, [fixed_gameid.csv](https://github.com/LOPES-HUFS/Data_Wrangling_for_KBO/blob/master/data/fixed_gameid.csv)에 잘못된 것과 수정한 것을 올려주시면 고맙겠습니다.
+
+```python
+data_1 = games.get_data(temp, number=26)
+data.update(data_1)
+```
+
+한 경기만 에러가 나서 추가하는 경우에는 아래와 같은 방법으로 한 경기 자료만 모은 다음 위에서 만든 자료에 추가하시면 됩니다.
+
+```python
+temp_data = single_game.get_data('20200906','NCSS1')
+temp_data = single_game.modify_data(temp_data)
+data.update(temp_data)
+```
+
+이렇게 모든 것을 저장하시려면 아래와 같이 하시면 됩니다.
+
+```python
+import json
+file_name = 'data/temp_data_9_1_to_9_15.json'
+with open(file_name, 'w') as outfile:
+    json.dump(data, outfile)
 ```
