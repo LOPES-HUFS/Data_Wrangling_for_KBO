@@ -65,11 +65,15 @@ def get_data(year, month, season):
     return gamelist_df
 
 def change_team_name(string):
-    temp = [string.find(team) for team in team_list.values()]
-    temp[:] = [0 if ele != -1 else ele for ele in temp]
-    temp = temp.index(0)
-    temp = list(team_list.items())[temp]
-    return temp[0]
+    try:
+        temp = [string.find(team) for team in team_list.values()]
+        temp[:] = [0 if ele != -1 else ele for ele in temp]
+        temp = temp.index(0)
+        temp = list(team_list.items())[temp]
+        return temp[0]
+    except :
+        print(string)
+        return '없음'
 
 def modify_data(year, data):
     '''
@@ -103,7 +107,7 @@ def modify_data(year, data):
     gameid_list.gameid[double_header[one]] = [str(i).replace("0","2") for i in gameid_list.gameid[double_header[one]]]
     gameid_list.gameid[double_header[[x for x in range(0,len(double_header)) if x not in one]]] = [str(i).replace("0","1") for i in gameid_list.gameid[double_header[[x for x in range(0,len(double_header)) if x not in one]]]]
 
-    gameid_list = gameid_list[gameid_list.gameid != "드림나눔0"]
+    gameid_list = gameid_list[gameid_list['home'] != "없음"]
 
     return gameid_list
 
