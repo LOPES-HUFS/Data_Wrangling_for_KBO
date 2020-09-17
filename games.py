@@ -154,7 +154,7 @@ def making_pitcher(data):
 
     for i in data.keys():
         away_team = away_team.append(pd.DataFrame(data[i]['away_pitcher']),sort = True)
-        home_team = home_team.append(pd.DataFrame(data[i]['away_pitcher']),sort = True)
+        home_team = home_team.append(pd.DataFrame(data[i]['home_pitcher']),sort = True)
     
     temp = pd.concat([away_team, home_team], ignore_index = True)
     temp = pd.DataFrame(temp,
