@@ -13,7 +13,10 @@ config.read('config.ini')
 Game_info_URL = config['DEFAULT']['Game_info_URL']
 chromium_location = config['DEFAULT']['chromium_location']
 
-team_list = {'HT':'KIA','OB':'두산','LT':'롯데','NC':'NC','SK':'SK','LG':'LG','WO':'키움','HH':'한화','SS':'삼성','KT':'KT'}
+team_list = {'KIA':'HT', '두산':'OB', '롯데':'LT', \
+                'NC':'NC', 'SK':'SK', 'LG':'LG', \
+                '넥센': 'WO','키움':'WO','한화':'HH', \
+                '삼성': 'SS','KT':'KT'} 
 
 def get_data(year, month, season):
     ''' 
@@ -70,19 +73,16 @@ def change_team_name(string):
     만약 팀명이 없는 경우에는 '없음'를 되돌려 준다.
 
     Arg:
-        팀명
+        팀명 : (str)
 
     Returns:
         팀 코드
     '''
 
     try:
-        temp = [string.find(team) for team in team_list.values()]
-        temp[:] = [0 if ele != -1 else ele for ele in temp]
-        temp = temp.index(0)
-        temp = list(team_list.items())[temp]
-        return temp[0]
-    except :
+        return team_list[string]
+
+    except:
         print(string)
         return '없음'
 
