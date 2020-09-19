@@ -93,7 +93,10 @@ def modify_data(year, data):
     출력값: 날짜 원정팀, 홈팀 gameid가 포함된 DF
     '''
 
-    data = data[(data['비고'] != "우천취소") & (data['비고'] !="강풍취소") & (data['비고'] !="그라운드사정")]
+    data = data[(data['비고'] != "우천취소") & \
+                (data['비고'] !="강풍취소") & \
+                (data['비고'] !="그라운드사정") & \
+                (data['비고'] !="미세먼지취소")]
 
     gameinfo=[s.split("vs") for s in data['경기']]
     awayteam = []
