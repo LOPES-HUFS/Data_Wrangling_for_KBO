@@ -144,6 +144,10 @@ def making_batter(data):
     temp.loc[:, 'day'] = temp['경기날짜'].dt.day
     temp.loc[:, 'week'] = temp['경기날짜'].dt.dayofweek
     temp.pop('경기날짜')
+    temp.loc[:,'선수명'][temp['선수명']=="페르난데"] = "페르난데스"
+    temp.loc[:,'선수명'][temp['선수명']=="해즐베이"] = "해즐베이커"
+    temp.loc[:,'선수명'][temp['선수명']=="스몰린스"] = "스몰린스키"
+    temp.loc[:,'선수명'][temp['선수명']=="반슬라이"] = "반슬라이크"
     temp = player.make_player_id(temp)
 
     return temp
