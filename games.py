@@ -7,6 +7,8 @@ import single_game
 import modifying_data
 import player
 
+namelist = {"페르난데":"페르난데스","해즐베이":"해즐베이커","스몰린스":"스몰린스키","반슬라이":"반슬라이크"}
+
 def get_data(game_list, number = 0):
     """
     디폴트는 game_list 0부터 시작하지만, 
@@ -144,10 +146,12 @@ def making_batter(data):
     temp.loc[:, 'day'] = temp['경기날짜'].dt.day
     temp.loc[:, 'week'] = temp['경기날짜'].dt.dayofweek
     temp.pop('경기날짜')
-    temp.loc[:,'선수명'][temp['선수명']=="페르난데"] = "페르난데스"
-    temp.loc[:,'선수명'][temp['선수명']=="해즐베이"] = "해즐베이커"
-    temp.loc[:,'선수명'][temp['선수명']=="스몰린스"] = "스몰린스키"
-    temp.loc[:,'선수명'][temp['선수명']=="반슬라이"] = "반슬라이크"
+    for i in temp["선수명"].unique():
+        for j,k in namelist.items():
+            if i == j:
+                temp.loc[:,'선수명'][temp['선수명']==j] = k
+            else:
+                pass
     temp = player.make_player_id(temp)
 
     return temp
