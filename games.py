@@ -29,7 +29,7 @@ def get_data(game_list, number = 0):
         try:
             for i in range(number, len(game_list)):
                 temp_data = single_game.get_data(
-                            game_list.date[i], game_list.gameid[i])
+                            str(game_list.date[i]), str(game_list.gameid[i]))
                 temp_data = single_game.modify_data(temp_data)
                 data.update(temp_data)
                 print(f'Download complete: {i}',\
@@ -43,7 +43,7 @@ def get_data(game_list, number = 0):
         try:
             for i in range(0, len(game_list)):
                 temp_data = single_game.get_data(
-                            game_list.date[i], game_list.gameid[i])
+                            str(game_list.date[i]), str(game_list.gameid[i]))
                 temp_data = single_game.modify_data(temp_data)
                 data.update(temp_data)
                 print(f'Download complete: {i}',\
