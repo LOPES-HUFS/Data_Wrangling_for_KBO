@@ -99,7 +99,7 @@ scoreboard <- read_parquet("sample/scoreboard.parquet")
 
 ```R
 url <- "https://raw.githubusercontent.com/LOPES-HUFS/Data_Wrangling_for_KBO/master/sample/scoreboard.parquet"
-download.file(url = url, destfile ="scoreboard.parquet"
+download.file(url = url, destfile = "scoreboard.parquet")
 scoreboard <- read_parquet("scoreboard.parquet")
 ```
 
