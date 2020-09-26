@@ -7,32 +7,28 @@
 우선 사용하기 위해서는 다음 패키지가 설치되어 있어야 합니다.
 
 ```R
-install.packages("RSQLite")
 install.packages("tidyverse")
+install.packages("RSQLite")
 install.packages("arrow")
 ```
 
-## 기초 셋팅
+## RSQLite를 이용하여 선수 테이더 살펴보기
 
-우선 R을 실행한 다음 working Dictionary를 변경합시다. 다음과 같이 입력했을 때 아래와 같은 결과 나오면 됩니다.
+만들어 놓은 자료를 R을 이용해서 SQLite에 올려봅시다. 이 글은 외부 DB를 사용하는 것을 상정하고 만들었기 때문에 SQLite을 이용하여 DB를 사용하는 작업 환경을 설정하고 있습니다. 우선 자료를 다운받습니다.
 
 ```R
-> dir()
- [1] "__pycache__"       "backup.db"         "config.ini"        "data"              "doc"               "game_info.py"      "games.py"          "LICENSE"
- [9] "modifying_data.py" "notebook.ipynb"    "pasing_page.py"    "player.py"         "players.py"        "README.md"         "sample"            "single_game.py"
-[17] "test.db"           "test.h5"           "testing.py"        "Untitled.ipynb"
+url <- "https://raw.githubusercontent.com/LOPES-HUFS/Data_Wrangling_for_KBO/master/sample/test.db"
+download.file(url = url, destfile ="test.db")
+
 ```
 
-## 사용법
-
-만들어 놓은 자료를 R을 이용해서 SQLite에 올려봅시다. 여기서는 외부 DB를 사용하는 것을 상정하고 만들었기 때문에 SQLite을 이용하여 DB를 사용하는 작업 환경을 설정하고 있습니다.
+다운받은 파일롤 DB를 만들어봅시다.
 
 ```R
-library(tidyverse)
 con <- DBI::dbConnect(RSQLite::SQLite(), "test.db")
 ```
 
-SQLite에 올린 자료를 R에서 사용하기 위하여 봅아봅시다.
+SQLite에 올린 자료를 R에서 사용하기 위하여 야수와 투수 자료를 뽑습니다.
 
 ```R
 pitcher <- tbl(con, "pitcher")
@@ -41,7 +37,7 @@ pitcher
 batter
 ```
 
-한화 샘슨 선수의 등판 이닝을 모두 합해봅시다.
+한화 샘슨 선수의 등판 이닝을 모두 찾아 합쳐봅시다.
 
 ```R
 pitcher %>%
@@ -79,23 +75,9 @@ batter %>%
 dbListTables(con)
 ```
 
-## 스코어 자료를 이용한 팀 데이터 분석
+## 스코어 자료를 이용한 팀 데이터 살펴보기
 
-우선 필요한 것들을 라이브러리를 챙깁니다.
-
-```R
-library(arrow)
-library(tidyverse)
-library(lubridate)
-```
-
-스코어보드 자료를 가져옵니댜.
-
-```R
-scoreboard <- read_parquet("sample/scoreboard.parquet")
-```
-
-앞에서 기초 세팅을 안 해서 위의 것이 작동을 안 하시는 분은 다음과 같이 해서 직접 다운 받아서 하시면 됩니다.
+스코어보드 자료를 가져옵니댜. 이번에는 `parquet`형식으로 만들 파일을 가져오겠습니다. 이 형식은 자료를 기본적으로 압축하기 때문에 사용하기가 편리합니다.
 
 ```R
 url <- "https://raw.githubusercontent.com/LOPES-HUFS/Data_Wrangling_for_KBO/master/sample/scoreboard.parquet"
