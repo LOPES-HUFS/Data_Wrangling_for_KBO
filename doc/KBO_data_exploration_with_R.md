@@ -325,3 +325,21 @@ temp <- scoreboard_win %>%
 ggplot(data = temp, aes(x = wday, y = n, fill=win)) +
     geom_bar(stat="identity", position=position_dodge())
 ```
+
+## `parquet`형식으로 저장된 파일을 선수 테이더 살펴보기
+
+우선 선수 자료를 다운받습니다. 선수 자료를 야수(batter)와 투수(pitcher)로 분리되어 있기 때문에 파일을 2개 받아야 합니다.
+
+```R
+url <- "https://raw.githubusercontent.com/LOPES-HUFS/Data_Wrangling_for_KBO/master/sample/batter.parquet"
+download.file(url = url, destfile = "batter.parquet")
+batter <- read_parquet("batter.parquet")
+
+url <- "https://raw.githubusercontent.com/LOPES-HUFS/Data_Wrangling_for_KBO/master/sample/pitcher.parquet"
+download.file(url = url, destfile = "pitcher.parquet")
+pitcher <- read_parquet("pitcher.parquet")
+```
+
+### 야수 데이터 살펴보기
+
+투수를 제외한 선수 자료인 `batter`을 살펴보도록 하겠습니다. 이 자료는 앞에서 스코어 자료와 마찬가지로 날짜가 복잡하게
