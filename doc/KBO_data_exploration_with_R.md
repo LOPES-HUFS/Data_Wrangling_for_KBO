@@ -14,7 +14,7 @@ install.packages("arrow")
 
 ## RSQLite를 이용하여 선수 테이더 살펴보기
 
-만들어 놓은 자료를 R을 이용해서 SQLite에 올려봅시다. 이 글은 외부 DB를 사용하는 것을 상정하고 만들었기 때문에 SQLite을 이용하여 DB를 사용하는 작업 환경을 설정하고 있습니다. 우선 자료를 다운받습니다.
+만들어 놓은 자료를 R을 이용해서 SQLite에 올려봅시다. 이 글은 외부 DB를 사용하는 것을 상정하고 만들었기 때문에 SQLite을 이용하여 DB를 사용하는 작업 환경을 설정하고 있습니다. 테스트 파일을 SQLite를 이용해서 만들어 두었습니다. 이 파일을 다운받습니다.
 
 ```R
 url <- "https://raw.githubusercontent.com/LOPES-HUFS/Data_Wrangling_for_KBO/master/sample/test.db"
