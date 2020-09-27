@@ -1,6 +1,6 @@
 import pandas as pd
 
-player_id_list = pd.read_csv("./data/kbo_player_info_new.csv")
+player_id_list = pd.read_csv("./data/player_info_list.csv")
 rename_player = pd.read_csv("./data/renamed_player_list.csv")
 
 def get_id(name):
