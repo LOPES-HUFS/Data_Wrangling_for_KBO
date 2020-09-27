@@ -1,5 +1,6 @@
 import json
 import ast
+import configparser
 
 import pandas as pd
 
@@ -7,7 +8,9 @@ import single_game
 import modifying_data
 import modifying_players_data as player
 
-namelist = {"페르난데":"페르난데스","해즐베이":"해즐베이커","스몰린스":"스몰린스키","반슬라이":"반슬라이크"}
+config = configparser.ConfigParser()
+config.read('config.ini')
+namelist = eval(config['DEFAULT']['full_names'])
 
 def get_data(game_list, number = 0):
     """
