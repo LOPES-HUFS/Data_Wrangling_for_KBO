@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 
 config = configparser.ConfigParser()
 config.read('config.ini')
-player_search_url = config['DEFAULT']['player_search_URL']
+player_search_url = eval(config['DEFAULT']['player_search_URL'])
 
 def searching(name):
     url = (f'{player_search_url}{name}')
