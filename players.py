@@ -1,7 +1,9 @@
-import requests
-from bs4 import BeautifulSoup
 import csv
 import json
+import configparser
+
+import requests
+from bs4 import BeautifulSoup
 
 player_search_url = "https://www.koreabaseball.com/Player/Search.aspx?searchWord="
 
