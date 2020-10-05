@@ -15,8 +15,8 @@ chromium_location = config['DEFAULT']['chromium_location']
 
 team_list = {'KIA':'HT', '두산':'OB', '롯데':'LT', \
                 'NC':'NC', 'SK':'SK', 'LG':'LG', \
-                '넥센': 'WO','키움':'WO','한화':'HH', \
-                '삼성': 'SS','KT':'KT'} 
+                '넥센': 'WO','키움':'WO', '히어로즈':'WO', \
+                '한화':'HH', '삼성': 'SS','KT':'KT'} 
 
 def get_data(year, month, season):
     ''' 
