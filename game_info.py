@@ -13,10 +13,7 @@ config.read('config.ini')
 Game_info_URL = config['DEFAULT']['Game_info_URL']
 chromium_location = config['DEFAULT']['chromium_location']
 
-team_list = {'KIA':'HT', '두산':'OB', '롯데':'LT', \
-                'NC':'NC', 'SK':'SK', 'LG':'LG', \
-                '넥센': 'WO','키움':'WO', '히어로즈':'WO', \
-                '한화':'HH', '삼성': 'SS','KT':'KT'} 
+team_list = eval(config['DEFAULT']['team_list'])
 
 def get_data(year, month, season):
     ''' 
