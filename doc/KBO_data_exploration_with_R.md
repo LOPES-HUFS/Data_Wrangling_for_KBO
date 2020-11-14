@@ -418,3 +418,20 @@ temp_batter %>%
     group_by(month) %>%
     summarize(margin = sum(안타) / sum(타수))
 ```
+
+윗 코드를 선수 ID를 가지고 처리하려면 다음과 같이 하면 됩니다.
+
+```R
+temp_batter %>%
+    filter(id == 74163) %>%
+    mutate(month = month(date, label = TRUE)) %>%
+    group_by(month) %>%
+    summarize(margin = sum(안타) / sum(타수))
+```
+
+이홍규 선수 id를 넣었기 때문에 같은 결과가 나옵니다.
+
+```R
+url <- "https://raw.githubusercontent.com/LOPES-HUFS/Data_Wrangling_for_KBO/master/data/all_player_list.csv"
+read_csv(url)
+```
